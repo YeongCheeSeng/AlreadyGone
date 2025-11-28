@@ -22,8 +22,6 @@ public class PlayerMovement : MonoBehaviour
         HandleMovement();
         HandleJump();
         HandleAnimations();
-
-        Debug.Log("Is Grounded: " + isGrounded);
     }
 
     private void HandleMovement()

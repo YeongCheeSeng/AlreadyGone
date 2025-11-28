@@ -1019,6 +1019,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 7617359411121884350, guid: f1bd4078bc8892946a9da259d0311f86, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 08d8da258c92fa444ad7a0467c88fd60, type: 2}
     - target: {fileID: 8119830517092554456, guid: f1bd4078bc8892946a9da259d0311f86, type: 3}
       propertyPath: m_Name
       value: Player

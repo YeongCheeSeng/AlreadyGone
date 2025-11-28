@@ -26,7 +26,6 @@ public class PlayerHealth : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H))
         {
             TakeDamage(10);
-            Debug.Log("Player Health: " + currentHealth);
         }
     }
 
