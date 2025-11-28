@@ -981,7 +981,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 399298786127798105, guid: f1bd4078bc8892946a9da259d0311f86, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 399298786127798105, guid: f1bd4078bc8892946a9da259d0311f86, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1015,6 +1015,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6909341439756423912, guid: f1bd4078bc8892946a9da259d0311f86, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
     - target: {fileID: 8119830517092554456, guid: f1bd4078bc8892946a9da259d0311f86, type: 3}
       propertyPath: m_Name
       value: Player
