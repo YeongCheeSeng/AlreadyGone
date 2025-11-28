@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5f;
+    public float jumpHeight = 5f;
     public Animator animator;
 
     private Rigidbody2D rb;
@@ -16,10 +17,10 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void Update()
     {
         HandleMovement();
+        HandleJump();
         HandleAnimations();
 
         Debug.Log("Is Grounded: " + isGrounded);
@@ -41,10 +42,13 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
+    }
 
+    private void HandleJump()
+    {
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            rb.velocity = new Vector2(rb.velocity.x, speed);
+            rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
         }
     }
 
