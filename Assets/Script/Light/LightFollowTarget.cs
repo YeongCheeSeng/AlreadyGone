@@ -1,18 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.TextCore.LowLevel;
 
 public class LightFollowTarget : MonoBehaviour
 {
     public GameObject target;
+    public bool rotateTowardsTarget = true;
+    public bool FollowTarget = true;
 
     void Update()
     {
-        Vector2 direction = target.transform.position - transform.position;
+        RotateTowardsTarget();
+        
+        if (FollowTarget && target != null)
+        {
+            transform.position = new Vector3 (target.transform.position.x, transform.localPosition.y);
+        }
+    }
 
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+    private void RotateTowardsTarget()
+    {
+        if (!rotateTowardsTarget || target == null)
+            return;
 
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        Vector3 Look = transform.InverseTransformPoint(target.transform.position);
+        float angle = Mathf.Atan2(Look.y, Look.x) * Mathf.Rad2Deg - 90;
+
+        transform.Rotate(0, 0, angle);
     }
 }
