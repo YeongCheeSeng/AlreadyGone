@@ -13,6 +13,7 @@ public class Enemy_behaviour : MonoBehaviour
     private float cooldowntimer = Mathf.Infinity;
 
     private Animator anim;
+    private PlayerHealth player_health;
 
     private void Awake()
     {
@@ -41,6 +42,10 @@ public class Enemy_behaviour : MonoBehaviour
             Physics2D.BoxCast(boxCollider.bounds.center + transform.right * range * transform.localScale.x * collisionDistance, 
             new Vector3(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y, boxCollider.bounds.size.z),
             0, Vector2.left, 0, playerLayer);
+
+        if(hit.collider != null)
+            player_health = hit.transform.GetComponent<PlayerHealth>();
+
 
         return hit.collider != null;
     }
@@ -83,6 +88,13 @@ public class Enemy_behaviour : MonoBehaviour
     //     );
     // }
 
+    void damagePlayer()
+    {
+        if(playerInsight())
+        {
+            player_health.TakeDamage(damage);
+        }
+    }
 
 }
 
