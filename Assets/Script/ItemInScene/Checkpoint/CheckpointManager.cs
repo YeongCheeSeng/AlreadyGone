@@ -37,24 +37,18 @@ public class CheckpointManager : MonoBehaviour
         RespawnPlayer();
     }
 
-    protected void CheckPlayerCurrentCheckpoint()
+    public void CheckPlayerCurrentCheckpoint() //this is trigger by checkpoint.cs
     {
-        if (Vector2.Distance(checkpoints[index].gameObject.transform.position, player.transform.position) < 1f)
-        {
-            if (index < checkpoints.Count -1)
-            index++;
+        index++;
+        index = Mathf.Clamp(index, 0, checkpoints.Count - 1); // <--- this code means the number of index will not lower than 0 and higher than checkpoints.Count - 1
 
-            checkpoints[index].gameObject.SetActive(false);
-            
-        }
+        currentCheckpoint = checkpoints[index];
     }
 
     void RespawnPlayer() 
     {
         if (playerHealth != null && playerHealth.currentHealth == 0)
         { 
-            index = Mathf.Clamp(index, 0, checkpoints.Count - 1);
-
             playerHealth.currentHealth = playerHealth.maxHealth;
             player.transform.position = checkpoints[index].position;
         }
