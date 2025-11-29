@@ -1,13 +1,13 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1102 &-6296387583886372507
+--- !u!1102 &-7095468743665819613
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hand_WalkAnimation
+  m_Name: Hand_Walk
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -36,11 +36,11 @@ AnimatorStateMachine:
   m_Name: Base Layer
   m_ChildStates:
   - serializedVersion: 1
-    m_State: {fileID: 488886761587081463}
-    m_Position: {x: 200, y: 0, z: 0}
+    m_State: {fileID: 451123818747411588}
+    m_Position: {x: 385.08905, y: 64.95554, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: -6296387583886372507}
-    m_Position: {x: 235, y: 65, z: 0}
+    m_State: {fileID: -7095468743665819613}
+    m_Position: {x: 390, y: 150, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -50,7 +50,7 @@ AnimatorStateMachine:
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: 488886761587081463}
+  m_DefaultState: {fileID: 451123818747411588}
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0
@@ -73,14 +73,14 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
---- !u!1102 &488886761587081463
+--- !u!1102 &451123818747411588
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hand_IdleAnimation
+  m_Name: Hand_Idle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []

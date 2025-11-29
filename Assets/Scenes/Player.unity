@@ -910,6 +910,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1820516930}
   speed: 1
+  animator: {fileID: 1769190086}
 --- !u!1 &1697186607
 GameObject:
   m_ObjectHideFlags: 0
@@ -1192,6 +1193,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!95 &1769190086 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1425828922425802585, guid: 6e70cfd60c1053b42b930c3a921dc43f, type: 3}
+  m_PrefabInstance: {fileID: 7079340542446469283}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1820516930 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8119830517092554456, guid: f1bd4078bc8892946a9da259d0311f86, type: 3}
@@ -1508,7 +1514,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8173241249323230968, guid: 6e70cfd60c1053b42b930c3a921dc43f, type: 3}
       propertyPath: m_Constraints
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5278028028039030670, guid: 6e70cfd60c1053b42b930c3a921dc43f, type: 3}
       propertyPath: m_Name
@@ -1520,7 +1526,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7605970525583527535, guid: 6e70cfd60c1053b42b930c3a921dc43f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.66
+      value: -3.997
       objectReference: {fileID: 0}
     - target: {fileID: 7605970525583527535, guid: 6e70cfd60c1053b42b930c3a921dc43f, type: 3}
       propertyPath: m_LocalPosition.z
