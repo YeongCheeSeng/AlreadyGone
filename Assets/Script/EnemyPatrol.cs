@@ -19,14 +19,21 @@ public class EnemyPatrol : MonoBehaviour
     public bool canMove = true;
     public bool canFollow = false;
 
+    private E_Health enemyHealth;
+
     void Awake()
     {
         initscale = enemy.localScale;
     }
 
+    private void Start()
+    {
+        enemyHealth = enemy.gameObject.GetComponent<E_Health>();
+    }
+
     void Update()
     {
-        if (canFollow) return; // iff can follow is true return
+        if (canFollow) return; // if can follow is true return
 
         if (!canMove) return;
 
@@ -63,11 +70,15 @@ public class EnemyPatrol : MonoBehaviour
 
     public void MoveInDirection(int _direction)
     {
+        if (enemyHealth != null)
+        {
+            if (enemyHealth.dead == true) return;
 
-        enemy.localScale = new Vector3(Mathf.Abs(initscale.x) * _direction, 
-            initscale.y, initscale.z);
+            enemy.localScale = new Vector3(Mathf.Abs(initscale.x) * _direction,
+                initscale.y, initscale.z);
 
-        enemy.position = new Vector3(enemy.position.x + Time.deltaTime * _direction * speed, 
-            enemy.position.y, enemy.position.z);
+            enemy.position = new Vector3(enemy.position.x + Time.deltaTime * _direction * speed,
+                enemy.position.y, enemy.position.z);
+        }
     }
 }

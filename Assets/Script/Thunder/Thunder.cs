@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class Thunder : MonoBehaviour
 {
+    [Header("Flash randomizer")]
+    public float maxTime = 30f;
+    public float minTime = 20f;
+    private float currentTime;
+
+    [Header("Flash setting")]
     public Image flashImage;
     public float flashDuration = 0.1f;
     public int flashCount = 3;
@@ -19,14 +25,20 @@ public class Thunder : MonoBehaviour
         {
             flashImage.enabled = false;
         }
+
+        currentTime = Random.Range(minTime, maxTime);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J))
+        currentTime -= Time.deltaTime;
+        if (currentTime <= 0)
         {
             StartCoroutine(Flash());
+            currentTime = Random.Range(minTime, maxTime);
         }
+
+        if (Input.GetKeyDown(KeyCode.H)) StartCoroutine(Flash());
     }
 
     IEnumerator Flash()
