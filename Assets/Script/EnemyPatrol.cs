@@ -12,9 +12,12 @@ public class EnemyPatrol : MonoBehaviour
     [SerializeField] private Transform enemy;
 
     [Header("Movement")]
-    [SerializeField] private float speed;
+    [SerializeField] public float speed;
     private Vector3 initscale;
     private bool movingLeft;
+
+    public bool canMove = true;
+
     void Awake()
     {
         initscale = enemy.localScale;
@@ -22,6 +25,8 @@ public class EnemyPatrol : MonoBehaviour
 
     void Update()
     {
+        if (!canMove) return;
+        
         if(movingLeft)
         {
             if(enemy.position.x >= leftEdge.position.x)
@@ -55,6 +60,7 @@ public class EnemyPatrol : MonoBehaviour
 
     private void MoveInDirection(int _direction)
     {
+
         enemy.localScale = new Vector3(Mathf.Abs(initscale.x) * _direction, 
             initscale.y, initscale.z);
 
