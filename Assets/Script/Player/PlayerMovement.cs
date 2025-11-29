@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isFacingRight = true;
 
     private Rigidbody2D rb;
-    private bool isGrounded;
+    public bool isGrounded;
     private PlayerHealth playerHealth;
 
     private void Start()

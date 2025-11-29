@@ -1,29 +1,30 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject spawnGameObject;
-    private GameObject recordspawnGameObject;
-    public float interval = 0.5f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        recordspawnGameObject = spawnGameObject;
-    }
+    [Header("Prefab to Spawn")]
+    public GameObject spawnPrefab;   // <-- prefab (never destroy this!)
 
-    // Update is called once per frame
+    public float interval = 0.5f;
+    private bool canSpawn = true;
+
     void Update()
     {
-        if (spawnGameObject != null)
-        { 
-            
+        if (canSpawn)
+        {
+            canSpawn = false;
+            StartCoroutine(SpawnRoutine());
         }
     }
 
-    IEnumerator Wait()
-    { 
+    IEnumerator SpawnRoutine()
+    {
+        // Spawn the prefab, not the scene object
+        Instantiate(spawnPrefab, transform.position, transform.rotation);
+
         yield return new WaitForSeconds(interval);
+
+        canSpawn = true;
     }
 }
