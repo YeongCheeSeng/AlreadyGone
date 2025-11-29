@@ -6,20 +6,33 @@ public class EndPointZone : MonoBehaviour
 {
     [SerializeField] private float moveDuration = 2.8f; // Duration for moving the player
     [SerializeField] private float waitBeforeLoad = 5f; // Wait time before loading next scene
-    public bool walkingInStart = true;
-    Collider2D endGameZone;
+    public bool walkingOnly = true;
+
+    [Header("Cinematic Settings")]
+    [SerializeField] private GameObject cinematicBars;
+    public float cinematicDuration = 5.0f;
+    public bool showCinematicBars = true;
+
+    private Collider2D endGameZone;
     private PlayerMovement player;
     private Rigidbody2D playerRigidbody;
+    private CinematicBar barSystem;
 
     private void Awake()
     {
         endGameZone = GetComponent<Collider2D>();
+
+        if (cinematicBars != null)
+        {
+            barSystem = cinematicBars.GetComponent<CinematicBar>(); // Assign to class-level variable
+        }
     }
+
     private void OnTriggerEnter2D(Collider2D target)
     {
         if (target.tag == "Player")
         {
-            Debug.Log("Player reached the end zone.");
+            //Debug.Log("Player reached the end zone.");
             player = target.GetComponent<PlayerMovement>();
 
             if (player != null)
@@ -43,6 +56,12 @@ public class EndPointZone : MonoBehaviour
         // Play walk animation once
         player.animator.Play("Player_Walk");
 
+        // Show bars (starts animating but doesn't wait)
+        if (showCinematicBars && barSystem != null)
+        {
+            barSystem.ShowBars();
+        }
+
         // Move player to the right for moveDuration seconds
         while (elapsedTime < moveDuration)
         {
@@ -52,11 +71,18 @@ public class EndPointZone : MonoBehaviour
             yield return null;
         }
 
+        if (showCinematicBars && barSystem != null)
+        {
+            // Wait for a moment before hiding bars
+            yield return new WaitForSeconds(cinematicDuration);
+            barSystem.HideBars();
+        }
+
         // Stop movement
         playerRigidbody.velocity = new Vector2(0, originalVelocity.y);
         player.animator.Play("Player_Idle");
 
-        if (walkingInStart)
+        if (walkingOnly)
         {
             player.SetCanMove(true);
         }
@@ -66,8 +92,7 @@ public class EndPointZone : MonoBehaviour
             yield return new WaitForSeconds(waitBeforeLoad);
 
             // Load the next scene
-            //SceneManager.LoadScene("Ending");
-            Debug.Log("Loading Ending Scene...");
+            Debug.Log("Loading Next Scene");
         }
     }
 }

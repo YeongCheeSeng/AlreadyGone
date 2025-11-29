@@ -194,6 +194,11 @@ Transform:
   - {fileID: 1594612551}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &77763353 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3888066535047775629, guid: 86ebeb2c04619784eb77abe1f143fbdb, type: 3}
+  m_PrefabInstance: {fileID: 8035930795414533990}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &77763354 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3006358229690637751, guid: 86ebeb2c04619784eb77abe1f143fbdb, type: 3}
@@ -522,7 +527,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveDuration: 2.8
   waitBeforeLoad: 5
-  walkingInStart: 0
+  walkingOnly: 0
+  cinematicBars: {fileID: 77763353}
+  cinematicDuration: 5
+  showCinematicBars: 1
 --- !u!1 &1374614760
 GameObject:
   m_ObjectHideFlags: 0

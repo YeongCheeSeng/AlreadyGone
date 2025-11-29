@@ -49,7 +49,7 @@ public class CinematicBar : MonoBehaviour
         if (isAnimating)
             StopAllCoroutines();
         
-        StartCoroutine(MoveBars(initialTopBarY, initialBottomBarY, OnBarsShown));
+        StartCoroutine(MoveBars(TopBarTargetY, BottomBarTargetY, OnBarsShown));
     }
 
     public void HideBars()
@@ -57,7 +57,7 @@ public class CinematicBar : MonoBehaviour
         if (isAnimating)
             StopAllCoroutines();
         
-        StartCoroutine(MoveBars(TopBarTargetY, BottomBarTargetY, OnBarsHidden));
+        StartCoroutine(MoveBars(initialTopBarY, initialBottomBarY, OnBarsHidden));
     }
 
     public bool IsAnimating => isAnimating;
