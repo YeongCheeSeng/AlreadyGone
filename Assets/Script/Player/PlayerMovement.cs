@@ -109,31 +109,62 @@ public class PlayerMovement : MonoBehaviour
 
     public void HandleAnimations()
     {
-        if (playerHealth.isDead)
+        if (isFacingRight)
         {
-            animator.Play("Player_Death");
-            return;
-        }
+            if (playerHealth.isDead)
+            {
+                animator.Play("Player_DeathRight");
+                return;
+            }
 
-        if (!isAttacking)
-        {
-            if (rb.velocity.x != 0 && isGrounded)
+            if (!isAttacking)
             {
-                animator.Play("Player_Walk");
+                if (rb.velocity.x != 0 && isGrounded)
+                {
+                    animator.Play("Player_WalkRight");
+                }
+                else if (isGrounded)
+                {
+                    animator.Play("Player_IdleRight");
+                }
+                else
+                {
+                    animator.Play("Player_JumpRight");
+                }
+                return;
             }
-            else if (isGrounded)
+            else if (isGrounded && isAttacking)
             {
-                animator.Play("Player_Idle");
+                animator.Play("Player_AttackRight");
             }
-            else
-            {
-                animator.Play("Player_Jump");
-            }
-            return;
         }
-        else if (isGrounded && isAttacking)
+        else
         {
-            animator.Play("Player_Attack");
+            if (playerHealth.isDead)
+            {
+                animator.Play("Player_DeathLeft");
+                return;
+            }
+            if (!isAttacking)
+            {
+                if (rb.velocity.x != 0 && isGrounded)
+                {
+                    animator.Play("Player_WalkLeft");
+                }
+                else if (isGrounded)
+                {
+                    animator.Play("Player_IdleLeft");
+                }
+                else
+                {
+                    animator.Play("Player_JumpLeft");
+                }
+                return;
+            }
+            else if (isGrounded && isAttacking)
+            {
+                animator.Play("Player_AttackLeft");
+            }
         }
     }
 
