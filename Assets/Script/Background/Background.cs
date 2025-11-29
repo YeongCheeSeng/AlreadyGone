@@ -1,28 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Background : MonoBehaviour
 {
     public GameObject player;
-    private PlayerMovement playerMovement;
+    private Vector3 lastPos;
 
+    public float parallaxMultiplier = 0.05f;
     [SerializeField] private Renderer bgRenderer;
-    // Start is called before the first frame update
+
     void Start()
     {
         if (player == null)
             player = GameObject.FindGameObjectWithTag("Player");
 
-        playerMovement = player.GetComponent<PlayerMovement>();
+        lastPos = player.transform.position;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (playerMovement != null)
-        {
-            bgRenderer.material.mainTextureOffset += new Vector2(playerMovement.speed * Time.deltaTime, 0);
-        }
+        // Follow player horizontally
+        transform.position = new Vector2(player.transform.position.x, transform.position.y);
+
+        float deltaX = player.transform.position.x - lastPos.x;
+
+        // Move background only when actual position changes
+        bgRenderer.material.mainTextureOffset += new Vector2(deltaX * parallaxMultiplier, 0);
+
+        lastPos = player.transform.position;
     }
 }
