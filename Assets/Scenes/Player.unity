@@ -2272,6 +2272,26 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 8020128514821711019, guid: f1bd4078bc8892946a9da259d0311f86, type: 3}
+      propertyPath: attackCooldown
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8020128514821711019, guid: f1bd4078bc8892946a9da259d0311f86, type: 3}
+      propertyPath: MaxFeedbackTime
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8020128514821711019, guid: f1bd4078bc8892946a9da259d0311f86, type: 3}
+      propertyPath: MinFeedbackTime
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8020128514821711019, guid: f1bd4078bc8892946a9da259d0311f86, type: 3}
+      propertyPath: walkFeedback.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8020128514821711019, guid: f1bd4078bc8892946a9da259d0311f86, type: 3}
+      propertyPath: walkFeedback.Array.data[0]
+      value: 
+      objectReference: {fileID: 5240519764553466427, guid: 2249f077de71a51489c9df755d6550dc, type: 3}
     - target: {fileID: 8119830517092554456, guid: f1bd4078bc8892946a9da259d0311f86, type: 3}
       propertyPath: m_Name
       value: Player
