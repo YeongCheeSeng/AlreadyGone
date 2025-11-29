@@ -9,10 +9,13 @@ public class PlayerHealth : MonoBehaviour
     public Image healthBar;
 
     public float currentHealth;
+    private PlayerMovement playerMovement;
 
     // Start is called before the first frame update
     void Start()
     {
+        playerMovement = GetComponent<PlayerMovement>();
+
         currentHealth = maxHealth;
 
         if (healthBar != null) healthBar.fillAmount = 1.0f;
@@ -59,5 +62,6 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         Debug.Log("Player Died");
+        playerMovement.SetCanMove(false);
     }
 }
