@@ -17,6 +17,10 @@ public class EndPointZone : MonoBehaviour
     public float cinematicDuration = 5.0f;
     public bool showCinematicBars = true;
 
+    [Header("Spawning Settings")]
+    public GameObject spawnPos;
+    public GameObject spawnTarget;
+
     private Collider2D endGameZone;
     private PlayerMovement player;
     private Rigidbody2D playerRigidbody;
@@ -78,6 +82,11 @@ public class EndPointZone : MonoBehaviour
         // Stop movement immediately
         playerRigidbody.velocity = new Vector2(0, originalVelocity.y);
         player.animator.Play("Player_Idle");
+
+        if (spawnPos != null && spawnTarget != null)
+        {
+            GameObject.Instantiate(spawnTarget, spawnPos.transform.position,spawnPos.transform.rotation );
+        }
 
         if (walkingAvailable)
         {

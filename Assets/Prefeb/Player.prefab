@@ -707,7 +707,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.1}
+  m_Size: {x: 0.4, y: 0.13}
   m_EdgeRadius: 0
 --- !u!50 &7543363267888847547
 Rigidbody2D:
@@ -725,7 +725,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 08d8da258c92fa444ad7a0467c88fd60, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -764,8 +764,8 @@ MonoBehaviour:
   - {fileID: 5240519764553466427, guid: 6c9a0d4d8b78b8f44a22e0bbb6ad02ca, type: 3}
   particle: {fileID: 6666120092012016030}
   animator: {fileID: 6894968322917694203}
-  groundCollider: {fileID: 7617359411121884350}
-  airCollider: {fileID: 6384505961458633536}
+  groundCollider: {fileID: 8321740907017852130}
+  airCollider: {fileID: 7617359411121884350}
   isFacingRight: 1
 --- !u!114 &801478307070906286
 MonoBehaviour:
