@@ -38,12 +38,16 @@ public class EnemyFollow : MonoBehaviour
     private float enemyFacing;
     private SpriteRenderer sr;
     private EnemyPatrol enemy_patrol;
+
+    private Vector3 originalTransform;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         enemy_patrol = GetComponentInParent<EnemyPatrol>();
         enemyFacing = enemy_patrol.enemy.transform.localScale.x;
+        originalTransform = transform.localScale;
     }
 
     private void Update()
@@ -69,9 +73,9 @@ public class EnemyFollow : MonoBehaviour
         rb.velocity = new Vector2(direction * speed, rb.velocity.y);
 
     if (direction > 0)
-        enemy.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
+        enemy.transform.localScale = new Vector3(originalTransform.x, originalTransform.y, originalTransform.z);
     else
-        enemy.transform.localScale = new Vector3(-2.5f, 2.5f, 2.5f);  
+        enemy.transform.localScale = new Vector3(-originalTransform.x, originalTransform.y, originalTransform.z);  
 
     }
 }
