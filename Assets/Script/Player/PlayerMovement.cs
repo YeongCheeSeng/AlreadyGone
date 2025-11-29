@@ -8,6 +8,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float speed = 5f;
     public bool canMove = true;
+    public GameObject[] walkFeedback;
+    [SerializeField] public float MinFeedbackTime = 0.5f;
+    [SerializeField] public float MaxFeedbackTime = 1f;
+    private float currentFeedbackTime;  
 
     [Header("Jump")]
     [SerializeField] public float jumpHeight = 5f;
@@ -21,11 +25,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public float attackStart = 0.1f;
     [SerializeField] public float attackDur = 0.3f;
     [SerializeField] public float attackEnd = 0.1f;
+    public GameObject[] attackFeedback;
     private bool isAttacking;
     private bool canAttack;
 
-    [Header("Feedback")]
-    public GameObject[] attackFeedback;
+    [Header("Walk particle")]
+    public GameObject particle;
 
     [Header("Reference")]
     public Animator animator;
@@ -45,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
         if (hurtBox != null) hurtBox.SetActive(false);
 
         currentAttackCooldown = attackCooldown;
+        currentFeedbackTime = Random.Range(MinFeedbackTime,MaxFeedbackTime);
     }
 
     private void Update()
@@ -56,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
             HandleAttack();
         }
 
+        HandleFeedback();
         HandleAnimations();
         HandleCollision();
     }
@@ -190,6 +197,22 @@ public class PlayerMovement : MonoBehaviour
     {
         groundCollider.isTrigger = !isGrounded;
         airCollider.isTrigger = isGrounded;
+    }
+
+    void HandleFeedback()
+    {
+        if (rb.velocity.magnitude > 0.1f && isGrounded)
+        {
+            currentFeedbackTime -= Time.deltaTime;
+
+            if (currentFeedbackTime <= 0)
+            {
+                FeedbackManager.Instance.SpawnFeedback(walkFeedback,gameObject);
+                currentFeedbackTime = Random.Range(MinFeedbackTime, MaxFeedbackTime);
+            }            
+        }
+
+        particle.SetActive(isGrounded);
     }
 
     private void OnTriggerStay2D(Collider2D collision)

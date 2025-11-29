@@ -20,6 +20,7 @@ public class EnemyPatrol : MonoBehaviour
     public bool canFollow = false;
 
     private E_Health enemyHealth;
+    public Animator animator;
 
     void Awake()
     {
@@ -73,6 +74,8 @@ public class EnemyPatrol : MonoBehaviour
         if (enemyHealth != null)
         {
             if (enemyHealth.dead == true) return;
+
+            animator.SetTrigger("moving");
 
             enemy.localScale = new Vector3(Mathf.Abs(initscale.x) * _direction,
                 initscale.y, initscale.z);
