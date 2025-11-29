@@ -15,7 +15,7 @@ public class HurtBox : MonoBehaviour
             if (enemyHealth != null)
             {
                 enemyHealth.TakeDamage(1);
-                FeedbackManager.Instance.SpawnFeedback(hitFeedback);
+                FeedbackManager.Instance.SpawnFeedback(hitFeedback,gameObject);
             }
 
             damaged = true;

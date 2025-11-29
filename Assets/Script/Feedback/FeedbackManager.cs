@@ -19,11 +19,11 @@ public class FeedbackManager : MonoBehaviour
         }
     }
 
-    public void SpawnFeedback(GameObject[] Feedbacks)
+    public void SpawnFeedback(GameObject[] Feedbacks, GameObject self)
     {
         foreach (var feedback in Feedbacks)
         {
-            GameObject FeedbackClone = GameObject.Instantiate(feedback, transform.position, transform.rotation);
+            GameObject FeedbackClone = GameObject.Instantiate(feedback, self.transform.position, self.transform.rotation);
             Destroy(FeedbackClone, 3f);
         }
     }
