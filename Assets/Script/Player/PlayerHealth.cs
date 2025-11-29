@@ -25,10 +25,8 @@ public class PlayerHealth : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.H))
         {
-            TakeDamage(10);
+            TakeDamage(1);
         }
-
-        Debug.Log("Current Health: " + currentHealth);
     }
 
     public void TakeDamage(float damage)
