@@ -1,4 +1,5 @@
 using System.Collections;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,7 +8,9 @@ public class EndPointZone : MonoBehaviour
     [Header("Auto Move Settings")]
     [SerializeField] private float moveDuration = 2.8f; // Duration for moving the player
     [SerializeField] private float waitBeforeLoad = 5f; // Wait time before loading next scene
-    public bool walkingAvailable = true;
+    [Tooltip("If true, player can walk after auto-move; if false, scene changes after wait time.")]
+    public bool walkingAvailable = true; 
+    public string nextSceneName;
 
     [Header("Cinematic Settings")]
     [SerializeField] private GameObject cinematicBars;
@@ -76,24 +79,27 @@ public class EndPointZone : MonoBehaviour
         playerRigidbody.velocity = new Vector2(0, originalVelocity.y);
         player.animator.Play("Player_Idle");
 
+        if (walkingAvailable)
+        {
+            // Re-enable player movement immediately after moveDuration
+            player.SetCanMove(true);
+        }
+
+        // Handle cinematic bars independently
         if (showCinematicBars && barSystem != null)
         {
-            // Wait for a moment before hiding bars
+            // Wait for cinematic duration before hiding bars
             yield return new WaitForSeconds(cinematicDuration);
             barSystem.HideBars();
         }
-
-        if (walkingAvailable)
-        {
-            player.SetCanMove(true);
-        }
-        else
+        
+        if (!walkingAvailable)
         {
             // Wait for seconds before loading next scene
             yield return new WaitForSeconds(waitBeforeLoad);
 
             // Load the next scene
-            Debug.Log("Loading Next Scene");
+            Debug.Log("Loading next: "+nextSceneName);
         }
     }
 }
