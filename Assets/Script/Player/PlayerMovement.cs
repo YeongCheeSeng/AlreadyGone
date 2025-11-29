@@ -29,6 +29,9 @@ public class PlayerMovement : MonoBehaviour
     private bool isAttacking;
     private bool canAttack;
 
+    [Header("Walk particle")]
+    public GameObject particle;
+
     [Header("Reference")]
     public Animator animator;
     public BoxCollider2D groundCollider;
@@ -208,6 +211,8 @@ public class PlayerMovement : MonoBehaviour
                 currentFeedbackTime = Random.Range(MinFeedbackTime, MaxFeedbackTime);
             }            
         }
+
+        particle.SetActive(isGrounded);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
