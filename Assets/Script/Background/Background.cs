@@ -19,7 +19,7 @@ public class Background : MonoBehaviour
     void Update()
     {
         // Follow player horizontally
-        transform.position = new Vector2(player.transform.position.x, transform.position.y);
+        transform.position = new Vector3(player.transform.position.x, transform.position.y,transform.position.z);
 
         float deltaX = player.transform.position.x - lastPos.x;
 

@@ -8,6 +8,7 @@ public class MoveToward : MonoBehaviour
     public float durationFromAMoveToB = 5f;
     public AnimationCurve easeCurve;
     private float t = 0f;
+    public bool destroyMeAfterArrived;
 
     // Start is called before the first frame update
     void Start()
@@ -26,5 +27,10 @@ public class MoveToward : MonoBehaviour
         float eased = easeCurve.Evaluate(t);
 
         transform.position = Vector2.MoveTowards(transform.position, target.position, eased);
+
+        if (destroyMeAfterArrived && Vector2.Distance(transform.position, target.position) < 0.1f)
+        { 
+            Destroy(gameObject);
+        }
     }
 }

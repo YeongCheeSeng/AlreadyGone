@@ -11,10 +11,12 @@ public class Enemy_behaviour : MonoBehaviour
     [SerializeField] private int damage;
     [SerializeField] private BoxCollider2D boxCollider;
     [SerializeField] private LayerMask playerLayer;
+    public GameObject[] hitFeedback;
     private float cooldowntimer = Mathf.Infinity;
     private float initSpeed;
 
     public Animator anim;
+    public GameObject spawnPos;
     private PlayerHealth player_health;
     private E_Health enemy_health;
     private EnemyPatrol enemy_patrol;
@@ -63,6 +65,8 @@ public class Enemy_behaviour : MonoBehaviour
         {
             player_health = hit.transform.GetComponent<PlayerHealth>();
             player_health?.TakeDamage(damage);
+            
+            FeedbackManager.Instance.SpawnFeedback(hitFeedback, spawnPos);
         }
 
         return hit.collider != null;

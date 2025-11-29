@@ -1,24 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     public float speed = 5f;
-    public float jumpHeight = 5f;
     public bool canMove = true;
-    public Animator animator;
+    public GameObject[] walkFeedback;
+    [SerializeField] public float MinFeedbackTime = 0.5f;
+    [SerializeField] public float MaxFeedbackTime = 1f;
+    private float currentFeedbackTime;  
+
+    [Header("Jump")]
+    [SerializeField] public float jumpHeight = 5f;
 
     [Header("Attack")]
     public GameObject hurtBox;
-    public float attackStart = 0.1f;
-    public float attackDur = 0.3f;
-    public float attackEnd = 0.1f;
+    [SerializeField] public float attackCooldown = 0.8f;
+    private float currentAttackCooldown;
+
+    [Header("Attack detail")]
+    [SerializeField] public float attackStart = 0.1f;
+    [SerializeField] public float attackDur = 0.3f;
+    [SerializeField] public float attackEnd = 0.1f;
+    public GameObject[] attackFeedback;
     private bool isAttacking;
 
+    [Header("Walk particle")]
+    public GameObject particle;
+
     [Header("Reference")]
+    public Animator animator;
     public bool isFacingRight = true;
 
     private Rigidbody2D rb;
@@ -31,6 +46,9 @@ public class PlayerMovement : MonoBehaviour
         playerHealth = GetComponent<PlayerHealth>();
 
         if (hurtBox != null) hurtBox.SetActive(false);
+
+        currentAttackCooldown = attackCooldown;
+        currentFeedbackTime = Random.Range(MinFeedbackTime,MaxFeedbackTime);
     }
 
     private void Update()
@@ -42,7 +60,10 @@ public class PlayerMovement : MonoBehaviour
             HandleAttack();
         }
 
+        HandleFeedback();
         HandleAnimations();
+
+        Debug.Log(isGrounded);
     }
 
     private void HandleMovement()
@@ -79,10 +100,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleAttack()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isAttacking)
+        currentAttackCooldown -= Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isAttacking && currentAttackCooldown <= 0)
         {
-            Debug.Log("Attack");
             StartCoroutine(Attack());
+            currentAttackCooldown = attackCooldown;
         }
     }
 
@@ -98,6 +121,7 @@ public class PlayerMovement : MonoBehaviour
 
         //During attack
         hurtBox.SetActive(true);
+        FeedbackManager.Instance.SpawnFeedback(attackFeedback, gameObject);
         yield return new WaitForSeconds(attackDur);
 
         //End of attack
@@ -131,7 +155,6 @@ public class PlayerMovement : MonoBehaviour
                 {
                     animator.Play("Player_JumpRight");
                 }
-                return;
             }
             else if (isGrounded && isAttacking)
             {
@@ -145,6 +168,7 @@ public class PlayerMovement : MonoBehaviour
                 animator.Play("Player_DeathLeft");
                 return;
             }
+
             if (!isAttacking)
             {
                 if (rb.velocity.x != 0 && isGrounded)
@@ -159,13 +183,28 @@ public class PlayerMovement : MonoBehaviour
                 {
                     animator.Play("Player_JumpLeft");
                 }
-                return;
             }
             else if (isGrounded && isAttacking)
             {
                 animator.Play("Player_AttackLeft");
             }
         }
+    }
+
+    void HandleFeedback()
+    {
+        if (rb.velocity.magnitude > 0.1f && isGrounded)
+        {
+            currentFeedbackTime -= Time.deltaTime;
+
+            if (currentFeedbackTime <= 0)
+            {
+                FeedbackManager.Instance.SpawnFeedback(walkFeedback,gameObject);
+                currentFeedbackTime = Random.Range(MinFeedbackTime, MaxFeedbackTime);
+            }            
+        }
+
+        particle.SetActive(isGrounded);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -189,7 +228,7 @@ public class PlayerMovement : MonoBehaviour
         canMove = value;
         if (!canMove)
         {
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            rb.velocity = new Vector2(0, 0);
         }
     }
 }

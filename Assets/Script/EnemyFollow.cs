@@ -11,7 +11,7 @@
 //     // Start is called before the first frame update
 //     void Start()
 //     {
-        
+
 //     }
 
 //     // Update is called once per frame
@@ -25,6 +25,7 @@
 // }
 
 
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class EnemyFollow : MonoBehaviour
@@ -37,15 +38,18 @@ public class EnemyFollow : MonoBehaviour
     private Rigidbody2D rb;
     private float enemyFacing;
     private SpriteRenderer sr;
+    private Animator anim;
     private EnemyPatrol enemy_patrol;
     private E_Health enemy_health;
 
+    private PlayerHealth playerHealth;
     private Vector3 originalTransform;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        anim = enemy.GetComponent<Animator>();
         enemy_health = GetComponent<E_Health>();
         enemy_patrol = GetComponentInParent<EnemyPatrol>();
 
@@ -61,8 +65,13 @@ public class EnemyFollow : MonoBehaviour
 
         if (distance < chaseRange)
         {
-            enemy_patrol.canFollow = true;
-            ChasePlayer();
+            playerHealth = player.GetComponent<PlayerHealth>();
+
+            if (playerHealth.currentHealth > 0)
+            {
+                enemy_patrol.canFollow = true;
+                ChasePlayer();                
+            }
         }
         else
         {
@@ -74,13 +83,13 @@ public class EnemyFollow : MonoBehaviour
     private void ChasePlayer()
     {
         float direction = Mathf.Sign(player.position.x - transform.position.x);
-        Debug.Log(direction);
         rb.velocity = new Vector2(direction * speed, rb.velocity.y);
 
-    if (direction > 0)
-        enemy.transform.localScale = new Vector3(originalTransform.x, originalTransform.y, originalTransform.z);
-    else
-        enemy.transform.localScale = new Vector3(-originalTransform.x, originalTransform.y, originalTransform.z);  
+        if (direction > 0)
+            enemy.transform.localScale = new Vector3(originalTransform.x, originalTransform.y, originalTransform.z);
+        else
+            enemy.transform.localScale = new Vector3(-originalTransform.x, originalTransform.y, originalTransform.z);
 
+        anim.SetTrigger("moving");
     }
 }

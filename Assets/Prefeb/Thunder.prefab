@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7132075, g: 0.7132075, b: 0.7132075, a: 0.7137255}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -191,6 +191,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 600b82c8049148f4d8f005a30d93a8eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxTime: 30
+  minTime: 20
   flashImage: {fileID: 6363743607015229910}
   flashDuration: 0.1
   flashCount: 3

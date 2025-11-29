@@ -190,7 +190,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1863118839, guid: c40d5c7adde6737418f76963d7e2825e, type: 3}
+  m_Sprite: {fileID: -1901892154, guid: c40d5c7adde6737418f76963d7e2825e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -275,6 +275,7 @@ MonoBehaviour:
   speed: 2
   canMove: 1
   canFollow: 0
+  animator: {fileID: 667903188455382117}
 --- !u!1 &3147284051836596884
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,6 +306,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3577505396148123039}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3526176621572504319
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1813663968222832345}
+  m_Layer: 6
+  m_Name: HurtBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1813663968222832345
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3526176621572504319}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.87, y: 1.63, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8724727651180179189}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3743851891512410857
 GameObject:
@@ -692,6 +724,18 @@ PrefabInstance:
       propertyPath: anim
       value: 
       objectReference: {fileID: 667903188455382117}
+    - target: {fileID: 5716542234667828155, guid: 79ff0e4b1702e1643bb43607d9035156, type: 3}
+      propertyPath: hitFeedback.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5716542234667828155, guid: 79ff0e4b1702e1643bb43607d9035156, type: 3}
+      propertyPath: hitFeedback.Array.data[0]
+      value: 
+      objectReference: {fileID: 5240519764553466427, guid: 837c1b62ba368564babb5d4398cd5f34, type: 3}
+    - target: {fileID: 5716542234667828155, guid: 79ff0e4b1702e1643bb43607d9035156, type: 3}
+      propertyPath: hitFeedback.Array.data[1]
+      value: 
+      objectReference: {fileID: 8094875444820561727, guid: e0edbae07c494f841a66a393d905dcc2, type: 3}
     - target: {fileID: 6047357521080660968, guid: 79ff0e4b1702e1643bb43607d9035156, type: 3}
       propertyPath: bar
       value: 
@@ -704,6 +748,14 @@ PrefabInstance:
       propertyPath: boxCollider
       value: 
       objectReference: {fileID: 8923570681882530383}
+    - target: {fileID: 6047357521080660968, guid: 79ff0e4b1702e1643bb43607d9035156, type: 3}
+      propertyPath: dieFeedback.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6047357521080660968, guid: 79ff0e4b1702e1643bb43607d9035156, type: 3}
+      propertyPath: dieFeedback.Array.data[0]
+      value: 
+      objectReference: {fileID: 5240519764553466427, guid: 8036f15cf2e870b4fb029159d7ac24cf, type: 3}
     - target: {fileID: 8041676081855347353, guid: 79ff0e4b1702e1643bb43607d9035156, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -721,6 +773,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5009075331584703171, guid: 79ff0e4b1702e1643bb43607d9035156, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5007645400857616075}
+    - targetCorrespondingSourceObject: {fileID: 5009075331584703171, guid: 79ff0e4b1702e1643bb43607d9035156, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1813663968222832345}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8092152856648982586, guid: 79ff0e4b1702e1643bb43607d9035156, type: 3}
       insertIndex: -1

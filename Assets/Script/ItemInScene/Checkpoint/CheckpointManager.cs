@@ -11,6 +11,8 @@ public class CheckpointManager : MonoBehaviour
     protected GameObject player;
     private PlayerHealth playerHealth;
     private PlayerMovement playerMovement;
+    public float waitBeforeRespawn = 1f;
+    private bool once;
 
     // Start is called before the first frame update
     void Start()
@@ -30,13 +32,22 @@ public class CheckpointManager : MonoBehaviour
 
                 checkpoints.Add(t);
             }
-        }       
+        }
+
+        if (checkpoints.Count > 0)
+        {
+            currentCheckpoint = checkpoints[0];
+            currentCheckpoint.transform.position = new Vector2(player.transform.position.x, currentCheckpoint.transform.position.y);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        RespawnPlayer();
+        if (playerHealth != null && playerHealth.currentHealth == 0 && once == false)
+        {
+            StartCoroutine(Wait(waitBeforeRespawn));
+        }
     }
 
     public void CheckPlayerCurrentCheckpoint() //this is trigger by checkpoint.cs
@@ -47,15 +58,22 @@ public class CheckpointManager : MonoBehaviour
         if (checkpoints.Count > 0)
         currentCheckpoint = checkpoints[index -1];
     }
+    IEnumerator Wait(float second)
+    {
+        once = true;
+
+        yield return new WaitForSeconds(second);
+        RespawnPlayer();
+
+        once = false;
+    }
 
     void RespawnPlayer() 
     {
-        if (playerHealth != null && playerHealth.currentHealth == 0)
-        { 
-            playerHealth.currentHealth = playerHealth.maxHealth;
-            player.transform.position = currentCheckpoint.transform.position;
-            playerMovement.SetCanMove(false);
-
-        }
+        playerHealth.currentHealth = playerHealth.maxHealth;
+        player.transform.position = currentCheckpoint.transform.position;
+        playerHealth.isDead = false;
+        playerMovement.SetCanMove(true);
     }
+
 }

@@ -15,6 +15,12 @@ public class HandMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        if (target == null)
+        {
+            target = GameObject.FindWithTag("Player");
+        }
+
         originalTransform = transform.localScale;
     }
 
@@ -47,6 +53,14 @@ public class HandMovement : MonoBehaviour
             {
                 animator.Play("Hand_Idle");
             }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            rb.velocity = Vector3.zero;
         }
     }
 }
