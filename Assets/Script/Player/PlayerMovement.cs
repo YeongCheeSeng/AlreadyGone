@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
     private bool isGrounded;
+    public bool isFacingRight = true;
 
     private void Start()
     {
@@ -35,11 +36,13 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(-speed, rb.velocity.y);
             transform.localScale = new Vector3(-1, 1, 1);
+            isFacingRight = false;
         }
         else if (Input.GetKey(KeyCode.D))
         {
             rb.velocity = new Vector2(speed, rb.velocity.y);
             transform.localScale = new Vector3(1, 1, 1);
+            isFacingRight = true;
         }
         else
         {
