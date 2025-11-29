@@ -42,9 +42,7 @@ public class Enemy_behaviour : MonoBehaviour
         if(!playerInsight())
         {
             enemy_patrol.canMove = true;
-        }
-
-         
+        }    
     }
 
     private bool playerInsight()
@@ -105,17 +103,7 @@ public class Enemy_behaviour : MonoBehaviour
         if(playerInsight())
         {
             player_health.TakeDamage(damage);
-            // enemy_patrol.speed = 0;
         }
-        // else if(!playerInsight())
-        // {
-        //     enemy_patrol.speed = 2;    
-        // }
-        
-        // else
-        // {
-        //     enemy_patrol.speed = 2;
-        // }
     }
 
 }
