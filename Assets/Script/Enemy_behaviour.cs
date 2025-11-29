@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class Enemy_behaviour : MonoBehaviour
@@ -11,13 +12,17 @@ public class Enemy_behaviour : MonoBehaviour
     [SerializeField] private BoxCollider2D boxCollider;
     [SerializeField] private LayerMask playerLayer;
     private float cooldowntimer = Mathf.Infinity;
+    private float initSpeed;
 
     private Animator anim;
     private PlayerHealth player_health;
+    private EnemyPatrol enemy_patrol;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        enemy_patrol = GetComponentInParent<EnemyPatrol>();
+        initSpeed = enemy_patrol.speed;
     }
 
     private void Update() 
@@ -32,7 +37,13 @@ public class Enemy_behaviour : MonoBehaviour
                 cooldowntimer = 0;
                 anim.SetTrigger("attack"); 
             }       
+            enemy_patrol.canMove = false;
         }
+        if(!playerInsight())
+        {
+            enemy_patrol.canMove = true;
+        }
+
          
     }
 
@@ -90,10 +101,21 @@ public class Enemy_behaviour : MonoBehaviour
 
     void damagePlayer()
     {
+
         if(playerInsight())
         {
             player_health.TakeDamage(damage);
+            // enemy_patrol.speed = 0;
         }
+        // else if(!playerInsight())
+        // {
+        //     enemy_patrol.speed = 2;    
+        // }
+        
+        // else
+        // {
+        //     enemy_patrol.speed = 2;
+        // }
     }
 
 }
