@@ -72,7 +72,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 0
   m_PointLightOuterAngle: 20.94172
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 11.52
+  m_PointLightOuterRadius: 30
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -96,5 +96,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  rotateTowardsTarget: 0
-  FollowTarget: 1
+  rotateTowardsTarget: 1
+  FollowTarget: 0

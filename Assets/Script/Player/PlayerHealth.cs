@@ -11,11 +11,15 @@ public class PlayerHealth : MonoBehaviour
 
     public float currentHealth;
     private PlayerMovement playerMovement;
+    private BoxCollider2D boxColider;
+    private Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        boxColider = GetComponent<BoxCollider2D>();
+        rb = GetComponent<Rigidbody2D>();
 
         currentHealth = maxHealth;
 
@@ -26,11 +30,6 @@ public class PlayerHealth : MonoBehaviour
     void Update()
     {
         UpdateHealthBar();
-
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            TakeDamage(1);
-        }
     }
 
     public void TakeDamage(float damage)
@@ -63,6 +62,8 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         Debug.Log("Player Died");
+        rb.gravityScale = 0;
+        boxColider.enabled = false;
         playerMovement.SetCanMove(false);
         isDead = true;
     }

@@ -9,7 +9,7 @@ public class UiManager : MonoBehaviour
     
     void Start()
     {
-        playerMovement = FindObjectOfType<PlayerMovement>();
+        playerMovement = GetComponentInParent<PlayerMovement>();
     }
 
     void LateUpdate()

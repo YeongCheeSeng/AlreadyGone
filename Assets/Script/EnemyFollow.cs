@@ -38,6 +38,7 @@ public class EnemyFollow : MonoBehaviour
     private float enemyFacing;
     private SpriteRenderer sr;
     private EnemyPatrol enemy_patrol;
+    private E_Health enemy_health;
 
     private Vector3 originalTransform;
 
@@ -45,13 +46,17 @@ public class EnemyFollow : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        enemy_health = GetComponent<E_Health>();
         enemy_patrol = GetComponentInParent<EnemyPatrol>();
+
         enemyFacing = enemy_patrol.enemy.transform.localScale.x;
         originalTransform = transform.localScale;
     }
 
     private void Update()
     {
+        if (enemy_health.dead == true) return;
+
         float distance = Vector2.Distance(transform.position, player.position);
 
         if (distance < chaseRange)

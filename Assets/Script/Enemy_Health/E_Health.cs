@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class E_Health : MonoBehaviour
 {
     [SerializeField] private float startingHealth;
     public float currentHealth;
-    private Animator anim;
-    private bool dead;
+    public Animator anim;
+    public Image bar;
+    public bool dead;
+
+    public BoxCollider2D boxCollider;
+    private Rigidbody2D rb;
 
     private void Awake()
     {
-        currentHealth = startingHealth;
-        anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        currentHealth = startingHealth;       
     }
 
     public void TakeDamage(float _damage)
@@ -31,13 +36,18 @@ public class E_Health : MonoBehaviour
            {
                 anim.SetTrigger("die");
                 dead = true;
+                boxCollider.enabled = false;
+                rb.velocity = Vector3.zero;
+                rb.gravityScale = 0f;
            }
         }
     }
     
     private void Update() // TEST PURPOSE
     {
-        if(Input.GetKeyDown(KeyCode.E))
-            TakeDamage(1);   
+        //if(Input.GetKeyDown(KeyCode.E))
+        //    TakeDamage(1);   
+
+        bar.fillAmount = currentHealth / startingHealth;
     }
 }
