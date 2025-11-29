@@ -15,6 +15,12 @@ public class HandMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        if (target == null)
+        {
+            target = GameObject.FindWithTag("Player");
+        }
+
         originalTransform = transform.localScale;
     }
 

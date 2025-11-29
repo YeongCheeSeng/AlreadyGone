@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -27,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public float attackEnd = 0.1f;
     public GameObject[] attackFeedback;
     private bool isAttacking;
-    private bool canAttack;
 
     [Header("Walk particle")]
     public GameObject particle;
@@ -65,6 +65,8 @@ public class PlayerMovement : MonoBehaviour
         HandleFeedback();
         HandleAnimations();
         HandleCollision();
+
+        Debug.Log(isGrounded);
     }
 
     private void HandleMovement()
@@ -156,7 +158,6 @@ public class PlayerMovement : MonoBehaviour
                 {
                     animator.Play("Player_JumpRight");
                 }
-                return;
             }
             else if (isGrounded && isAttacking)
             {
@@ -170,6 +171,7 @@ public class PlayerMovement : MonoBehaviour
                 animator.Play("Player_DeathLeft");
                 return;
             }
+
             if (!isAttacking)
             {
                 if (rb.velocity.x != 0 && isGrounded)
@@ -184,7 +186,6 @@ public class PlayerMovement : MonoBehaviour
                 {
                     animator.Play("Player_JumpLeft");
                 }
-                return;
             }
             else if (isGrounded && isAttacking)
             {
