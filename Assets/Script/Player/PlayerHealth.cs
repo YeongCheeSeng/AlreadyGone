@@ -7,6 +7,7 @@ public class PlayerHealth : MonoBehaviour
 {
     public float maxHealth = 100;
     public Image healthBar;
+    public bool isDead = false;
 
     public float currentHealth;
     private PlayerMovement playerMovement;
@@ -63,5 +64,6 @@ public class PlayerHealth : MonoBehaviour
     {
         Debug.Log("Player Died");
         playerMovement.SetCanMove(false);
+        isDead = true;
     }
 }
