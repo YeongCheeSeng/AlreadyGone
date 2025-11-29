@@ -74,6 +74,7 @@ public class CheckpointManager : MonoBehaviour
         player.transform.position = currentCheckpoint.transform.position;
         playerHealth.isDead = false;
         playerMovement.SetCanMove(true);
+        //playerMovement.isGrounded = true;
     }
 
 }
