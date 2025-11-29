@@ -9,9 +9,9 @@ public class Saw_dmg : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) 
     {
-        if(collision.tag == "Enemy")
+        if(collision.tag == "Player")
         {
-            collision.GetComponent<E_Health>().TakeDamage(damage);
+            collision.GetComponent<PlayerHealth>().TakeDamage(damage);
         }
     }
 }
