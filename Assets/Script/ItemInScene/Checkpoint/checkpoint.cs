@@ -6,6 +6,7 @@ public class checkpoint : MonoBehaviour
 {
     public CheckpointManager checkpointManager;
     private BoxCollider2D bc2d;
+    bool RunOneTime;
 
     // Start is called before the first frame update
     void Start()
@@ -16,10 +17,12 @@ public class checkpoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !RunOneTime)
         {
             bc2d.enabled = false;
             checkpointManager.CheckPlayerCurrentCheckpoint();
+
+            RunOneTime = true;
         }
     }
 }

@@ -15,6 +15,7 @@ public class TriggerMoveTowards : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         moveToward = GetComponent<MoveToward>();
 
+        if(rb2d != null)
         rb2d.bodyType = RigidbodyType2D.Static;
 
         if (moveToward != null)

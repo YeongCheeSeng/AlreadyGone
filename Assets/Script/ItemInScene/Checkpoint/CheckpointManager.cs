@@ -50,7 +50,7 @@ public class CheckpointManager : MonoBehaviour
         if (playerHealth != null && playerHealth.currentHealth == 0)
         { 
             playerHealth.currentHealth = playerHealth.maxHealth;
-            player.transform.position = checkpoints[index].position;
+            player.transform.position = currentCheckpoint.transform.position;
         }
     }
 }
