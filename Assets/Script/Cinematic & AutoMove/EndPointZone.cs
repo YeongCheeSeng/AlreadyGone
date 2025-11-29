@@ -4,9 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class EndPointZone : MonoBehaviour
 {
+    [Header("Auto Move Settings")]
     [SerializeField] private float moveDuration = 2.8f; // Duration for moving the player
     [SerializeField] private float waitBeforeLoad = 5f; // Wait time before loading next scene
-    public bool walkingOnly = true;
+    public bool walkingAvailable = true;
 
     [Header("Cinematic Settings")]
     [SerializeField] private GameObject cinematicBars;
@@ -82,7 +83,7 @@ public class EndPointZone : MonoBehaviour
         playerRigidbody.velocity = new Vector2(0, originalVelocity.y);
         player.animator.Play("Player_Idle");
 
-        if (walkingOnly)
+        if (walkingAvailable)
         {
             player.SetCanMove(true);
         }
