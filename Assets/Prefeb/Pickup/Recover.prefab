@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0dcef530833d2f4ea9fdeb6497dbc88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RecoverAmount: 10
+  RecoverAmount: 2
 --- !u!1 &9128065931575581958
 GameObject:
   m_ObjectHideFlags: 0
