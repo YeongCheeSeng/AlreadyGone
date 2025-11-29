@@ -38,8 +38,10 @@ public class Enemy_behaviour : MonoBehaviour
         {
             if(cooldowntimer > attackcooldown)
             {
-                cooldowntimer = 0;
-                anim.SetTrigger("attack"); 
+                //cooldowntimer = 0;
+                //anim.SetTrigger("attack"); 
+
+                StartCoroutine(Attack());
             }       
             enemy_patrol.canMove = false;
         }
@@ -66,11 +68,18 @@ public class Enemy_behaviour : MonoBehaviour
         return hit.collider != null;
     }
 
-    private  void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * range * transform.localScale.x * collisionDistance,
             new Vector3(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y, boxCollider.bounds.size.z ));
+    }
+
+    IEnumerator Attack()
+    {
+        cooldowntimer = 0;
+        anim.SetTrigger("attack");
+        yield return new WaitForSeconds(3f);
     }
 
     // private bool playerInsight()
