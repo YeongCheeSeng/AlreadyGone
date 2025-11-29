@@ -37,6 +37,8 @@ public class Thunder : MonoBehaviour
             StartCoroutine(Flash());
             currentTime = Random.Range(minTime, maxTime);
         }
+
+        if (Input.GetKeyDown(KeyCode.H)) StartCoroutine(Flash());
     }
 
     IEnumerator Flash()

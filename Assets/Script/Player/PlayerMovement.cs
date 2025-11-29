@@ -115,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
 
         //During attack
         hurtBox.SetActive(true);
-        FeedbackManager.Instance.SpawnFeedback(attackFeedback);
+        FeedbackManager.Instance.SpawnFeedback(attackFeedback, gameObject);
         yield return new WaitForSeconds(attackDur);
 
         //End of attack

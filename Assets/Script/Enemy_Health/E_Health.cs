@@ -40,7 +40,7 @@ public class E_Health : MonoBehaviour
                 boxCollider.enabled = false;
                 rb.velocity = Vector3.zero;
                 rb.gravityScale = 0f;
-                FeedbackManager.Instance.SpawnFeedback(dieFeedback);
+                FeedbackManager.Instance.SpawnFeedback(dieFeedback, gameObject);
            }
         }
     }

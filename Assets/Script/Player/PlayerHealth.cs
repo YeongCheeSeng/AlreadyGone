@@ -66,7 +66,7 @@ public class PlayerHealth : MonoBehaviour
         rb.gravityScale = 0;
         boxColider.enabled = false;
         playerMovement.SetCanMove(false);
-        FeedbackManager.Instance.SpawnFeedback(dieFeedback);
+        FeedbackManager.Instance.SpawnFeedback(dieFeedback, gameObject);
         isDead = true;
     }
 }

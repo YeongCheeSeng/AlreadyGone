@@ -692,6 +692,18 @@ PrefabInstance:
       propertyPath: anim
       value: 
       objectReference: {fileID: 667903188455382117}
+    - target: {fileID: 5716542234667828155, guid: 79ff0e4b1702e1643bb43607d9035156, type: 3}
+      propertyPath: hitFeedback.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5716542234667828155, guid: 79ff0e4b1702e1643bb43607d9035156, type: 3}
+      propertyPath: hitFeedback.Array.data[0]
+      value: 
+      objectReference: {fileID: 5240519764553466427, guid: 837c1b62ba368564babb5d4398cd5f34, type: 3}
+    - target: {fileID: 5716542234667828155, guid: 79ff0e4b1702e1643bb43607d9035156, type: 3}
+      propertyPath: hitFeedback.Array.data[1]
+      value: 
+      objectReference: {fileID: 8094875444820561727, guid: e0edbae07c494f841a66a393d905dcc2, type: 3}
     - target: {fileID: 6047357521080660968, guid: 79ff0e4b1702e1643bb43607d9035156, type: 3}
       propertyPath: bar
       value: 
@@ -704,6 +716,14 @@ PrefabInstance:
       propertyPath: boxCollider
       value: 
       objectReference: {fileID: 8923570681882530383}
+    - target: {fileID: 6047357521080660968, guid: 79ff0e4b1702e1643bb43607d9035156, type: 3}
+      propertyPath: dieFeedback.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6047357521080660968, guid: 79ff0e4b1702e1643bb43607d9035156, type: 3}
+      propertyPath: dieFeedback.Array.data[0]
+      value: 
+      objectReference: {fileID: 5240519764553466427, guid: 8036f15cf2e870b4fb029159d7ac24cf, type: 3}
     - target: {fileID: 8041676081855347353, guid: 79ff0e4b1702e1643bb43607d9035156, type: 3}
       propertyPath: m_Enabled
       value: 0

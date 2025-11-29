@@ -64,7 +64,7 @@ public class Enemy_behaviour : MonoBehaviour
         {
             player_health = hit.transform.GetComponent<PlayerHealth>();
             player_health?.TakeDamage(damage);
-            FeedbackManager.Instance.SpawnFeedback(hitFeedback);
+            FeedbackManager.Instance.SpawnFeedback(hitFeedback, gameObject);
         }
 
         return hit.collider != null;
