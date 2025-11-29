@@ -275,6 +275,7 @@ MonoBehaviour:
   speed: 2
   canMove: 1
   canFollow: 0
+  animator: {fileID: 667903188455382117}
 --- !u!1 &3147284051836596884
 GameObject:
   m_ObjectHideFlags: 0

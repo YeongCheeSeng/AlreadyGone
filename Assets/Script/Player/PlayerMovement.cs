@@ -201,7 +201,7 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleFeedback()
     {
-        if (rb.velocity.magnitude > 0.1f)
+        if (rb.velocity.magnitude > 0.1f && isGrounded)
         {
             currentFeedbackTime -= Time.deltaTime;
 
