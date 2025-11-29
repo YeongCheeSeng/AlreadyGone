@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HurtBox : MonoBehaviour
 {
+    public GameObject[] hitFeedback;
     private bool damaged = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -14,6 +15,7 @@ public class HurtBox : MonoBehaviour
             if (enemyHealth != null)
             {
                 enemyHealth.TakeDamage(1);
+                FeedbackManager.Instance.SpawnFeedback(hitFeedback);
             }
 
             damaged = true;

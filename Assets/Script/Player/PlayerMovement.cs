@@ -7,18 +7,30 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     public float speed = 5f;
-    public float jumpHeight = 5f;
     public bool canMove = true;
-    public Animator animator;
+
+    [Header("Jump")]
+    [SerializeField] public float jumpHeight = 5f;
 
     [Header("Attack")]
     public GameObject hurtBox;
-    public float attackStart = 0.1f;
-    public float attackDur = 0.3f;
-    public float attackEnd = 0.1f;
+    [SerializeField] public float attackCooldown = 0.8f;
+    private float currentAttackCooldown;
+
+    [Header("Attack detail")]
+    [SerializeField] public float attackStart = 0.1f;
+    [SerializeField] public float attackDur = 0.3f;
+    [SerializeField] public float attackEnd = 0.1f;
     private bool isAttacking;
+    private bool canAttack;
+
+    [Header("Feedback")]
+    public GameObject[] attackFeedback;
 
     [Header("Reference")]
+    public Animator animator;
+    public BoxCollider2D groundCollider;
+    public BoxCollider2D airCollider;
     public bool isFacingRight = true;
 
     private Rigidbody2D rb;
@@ -31,6 +43,8 @@ public class PlayerMovement : MonoBehaviour
         playerHealth = GetComponent<PlayerHealth>();
 
         if (hurtBox != null) hurtBox.SetActive(false);
+
+        currentAttackCooldown = attackCooldown;
     }
 
     private void Update()
@@ -43,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         HandleAnimations();
+        HandleCollision();
     }
 
     private void HandleMovement()
@@ -79,10 +94,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleAttack()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isAttacking)
+        currentAttackCooldown -= Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isAttacking && currentAttackCooldown <= 0)
         {
-            Debug.Log("Attack");
             StartCoroutine(Attack());
+            currentAttackCooldown = attackCooldown;
         }
     }
 
@@ -98,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
 
         //During attack
         hurtBox.SetActive(true);
+        FeedbackManager.Instance.SpawnFeedback(attackFeedback);
         yield return new WaitForSeconds(attackDur);
 
         //End of attack
@@ -168,6 +186,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void HandleCollision()
+    {
+        groundCollider.isTrigger = !isGrounded;
+        airCollider.isTrigger = isGrounded;
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Ground"))
@@ -189,7 +213,7 @@ public class PlayerMovement : MonoBehaviour
         canMove = value;
         if (!canMove)
         {
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            rb.velocity = new Vector2(0, 0);
         }
     }
 }

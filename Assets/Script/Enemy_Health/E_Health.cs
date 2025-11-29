@@ -10,6 +10,7 @@ public class E_Health : MonoBehaviour
     public Animator anim;
     public Image bar;
     public bool dead;
+    public GameObject[] dieFeedback;
 
     public BoxCollider2D boxCollider;
     private Rigidbody2D rb;
@@ -39,6 +40,7 @@ public class E_Health : MonoBehaviour
                 boxCollider.enabled = false;
                 rb.velocity = Vector3.zero;
                 rb.gravityScale = 0f;
+                FeedbackManager.Instance.SpawnFeedback(dieFeedback);
            }
         }
     }

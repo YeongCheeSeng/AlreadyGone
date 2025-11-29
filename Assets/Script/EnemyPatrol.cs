@@ -33,7 +33,7 @@ public class EnemyPatrol : MonoBehaviour
 
     void Update()
     {
-        if (canFollow) return; // iff can follow is true return
+        if (canFollow) return; // if can follow is true return
 
         if (!canMove) return;
 

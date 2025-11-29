@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
     public float maxHealth = 100;
     public Image healthBar;
     public bool isDead = false;
+    public GameObject[] dieFeedback;
 
     public float currentHealth;
     private PlayerMovement playerMovement;
@@ -65,6 +66,7 @@ public class PlayerHealth : MonoBehaviour
         rb.gravityScale = 0;
         boxColider.enabled = false;
         playerMovement.SetCanMove(false);
+        FeedbackManager.Instance.SpawnFeedback(dieFeedback);
         isDead = true;
     }
 }

@@ -40,6 +40,7 @@ public class EnemyFollow : MonoBehaviour
     private EnemyPatrol enemy_patrol;
     private E_Health enemy_health;
 
+    private PlayerHealth playerHealth;
     private Vector3 originalTransform;
 
     private void Awake()
@@ -61,8 +62,13 @@ public class EnemyFollow : MonoBehaviour
 
         if (distance < chaseRange)
         {
-            enemy_patrol.canFollow = true;
-            ChasePlayer();
+            playerHealth = player.GetComponent<PlayerHealth>();
+
+            if (playerHealth.currentHealth > 0)
+            {
+                enemy_patrol.canFollow = true;
+                ChasePlayer();                
+            }
         }
         else
         {
@@ -74,7 +80,6 @@ public class EnemyFollow : MonoBehaviour
     private void ChasePlayer()
     {
         float direction = Mathf.Sign(player.position.x - transform.position.x);
-        Debug.Log(direction);
         rb.velocity = new Vector2(direction * speed, rb.velocity.y);
 
     if (direction > 0)
