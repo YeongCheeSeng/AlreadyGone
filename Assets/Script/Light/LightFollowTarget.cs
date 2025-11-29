@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.TextCore.LowLevel;
 
 public class LightFollowTarget : MonoBehaviour
 {
@@ -9,10 +8,14 @@ public class LightFollowTarget : MonoBehaviour
 
     void Update()
     {
-        Vector2 direction = target.transform.position - transform.position;
+        Vector3 targetPos = target.transform.position;
+        targetPos.z = transform.position.z;
+
+        Vector2 direction = targetPos - transform.position;
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        angle = (angle + 360) % 360;
 
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        transform.rotation = Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, angle);
     }
 }
