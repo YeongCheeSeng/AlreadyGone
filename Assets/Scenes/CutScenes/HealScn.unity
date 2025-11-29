@@ -244,10 +244,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueText: {fileID: 1666533271}
-  dialogueLine: HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLL
-    MEEEEEH!!!!!
+  dialogueLines: []
   typingSpeed: 0.04
-  waitAfterFinished: 0.5
+  waitAfterFinished: 0
   continueText: {fileID: 708569755}
   blinkSpeed: 2
   nextSceneName: EndingScn
@@ -500,7 +499,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 794, y: -95}
+  m_AnchoredPosition: {x: 764, y: -122}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1422236274
@@ -645,8 +644,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLL
-    MEEEEEH!!!!!
+  m_text: '
 
 '
   m_isRightToLeft: 0
