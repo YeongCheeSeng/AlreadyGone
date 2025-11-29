@@ -38,26 +38,37 @@ public class EnemyFollow : MonoBehaviour
     private float enemyFacing;
     private SpriteRenderer sr;
     private EnemyPatrol enemy_patrol;
+    private E_Health enemy_health;
 
+    private PlayerHealth playerHealth;
     private Vector3 originalTransform;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        enemy_health = GetComponent<E_Health>();
         enemy_patrol = GetComponentInParent<EnemyPatrol>();
+
         enemyFacing = enemy_patrol.enemy.transform.localScale.x;
         originalTransform = transform.localScale;
     }
 
     private void Update()
     {
+        if (enemy_health.dead == true) return;
+
         float distance = Vector2.Distance(transform.position, player.position);
 
         if (distance < chaseRange)
         {
-            enemy_patrol.canFollow = true;
-            ChasePlayer();
+            playerHealth = player.GetComponent<PlayerHealth>();
+
+            if (playerHealth.currentHealth > 0)
+            {
+                enemy_patrol.canFollow = true;
+                ChasePlayer();                
+            }
         }
         else
         {
@@ -69,7 +80,6 @@ public class EnemyFollow : MonoBehaviour
     private void ChasePlayer()
     {
         float direction = Mathf.Sign(player.position.x - transform.position.x);
-        Debug.Log(direction);
         rb.velocity = new Vector2(direction * speed, rb.velocity.y);
 
     if (direction > 0)
