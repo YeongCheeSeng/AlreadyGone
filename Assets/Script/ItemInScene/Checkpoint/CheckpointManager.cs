@@ -10,12 +10,14 @@ public class CheckpointManager : MonoBehaviour
     public Transform currentCheckpoint;
     protected GameObject player;
     private PlayerHealth playerHealth;
+    private PlayerMovement playerMovement;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindWithTag("Player");
         playerHealth = player.GetComponent<PlayerHealth>();
+        playerMovement = player.GetComponent<PlayerMovement>();
 
         foreach (Transform t in GetComponentsInChildren<Transform>()) 
         {
@@ -42,7 +44,8 @@ public class CheckpointManager : MonoBehaviour
         index++;
         index = Mathf.Clamp(index, 0, checkpoints.Count - 1); // <--- this code means the number of index will not lower than 0 and higher than checkpoints.Count - 1
 
-        currentCheckpoint = checkpoints[index];
+        if (checkpoints.Count > 0)
+        currentCheckpoint = checkpoints[index -1];
     }
 
     void RespawnPlayer() 
@@ -51,6 +54,8 @@ public class CheckpointManager : MonoBehaviour
         { 
             playerHealth.currentHealth = playerHealth.maxHealth;
             player.transform.position = currentCheckpoint.transform.position;
+            playerMovement.SetCanMove(false);
+
         }
     }
 }
