@@ -2301,6 +2301,10 @@ PrefabInstance:
       propertyPath: loadDelay
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6384505961458633536, guid: f1bd4078bc8892946a9da259d0311f86, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6909341439756423912, guid: f1bd4078bc8892946a9da259d0311f86, type: 3}
       propertyPath: m_Camera
       value: 
@@ -2308,6 +2312,18 @@ PrefabInstance:
     - target: {fileID: 8119830517092554456, guid: f1bd4078bc8892946a9da259d0311f86, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321740907017852130, guid: f1bd4078bc8892946a9da259d0311f86, type: 3}
+      propertyPath: m_Size.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321740907017852130, guid: f1bd4078bc8892946a9da259d0311f86, type: 3}
+      propertyPath: m_Size.y
+      value: 0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321740907017852130, guid: f1bd4078bc8892946a9da259d0311f86, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.07
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
