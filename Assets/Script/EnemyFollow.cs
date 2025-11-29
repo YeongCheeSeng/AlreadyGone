@@ -69,9 +69,9 @@ public class EnemyFollow : MonoBehaviour
         rb.velocity = new Vector2(direction * speed, rb.velocity.y);
 
     if (direction > 0)
-        enemy.transform.localScale = new Vector3(2, 2, 2);
+        enemy.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
     else
-        enemy.transform.localScale = new Vector3(-2, 2, 2);  
+        enemy.transform.localScale = new Vector3(-2.5f, 2.5f, 2.5f);  
 
     }
 }
