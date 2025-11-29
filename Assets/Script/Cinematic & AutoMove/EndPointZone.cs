@@ -1,5 +1,6 @@
 using System.Collections;
 using System.ComponentModel;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,8 +19,8 @@ public class EndPointZone : MonoBehaviour
     public bool showCinematicBars = true;
 
     [Header("Spawning Settings")]
-    public GameObject spawnPos;
-    public GameObject spawnTarget;
+    public GameObject[] showObjects;
+    public GameObject[] hideObjects;
 
     private Collider2D endGameZone;
     private PlayerMovement player;
@@ -33,6 +34,14 @@ public class EndPointZone : MonoBehaviour
         if (cinematicBars != null)
         {
             barSystem = cinematicBars.GetComponent<CinematicBar>(); // Assign to class-level variable
+        }
+
+        if (showObjects != null && showObjects.Count() > 0)
+        {
+            foreach (GameObject go in showObjects)
+            {
+                go.SetActive(false);
+            }
         }
     }
 
@@ -83,10 +92,22 @@ public class EndPointZone : MonoBehaviour
         playerRigidbody.velocity = new Vector2(0, originalVelocity.y);
         player.animator.Play("Player_Idle");
 
-        if (spawnPos != null && spawnTarget != null)
+        if (hideObjects != null && hideObjects.Count() > 0)
         {
-            GameObject.Instantiate(spawnTarget, spawnPos.transform.position,spawnPos.transform.rotation );
+            foreach (GameObject go in hideObjects)
+            {
+                go.SetActive(false);
+            }
         }
+
+        if (showObjects != null && showObjects.Count() > 0)
+        {
+            foreach (GameObject go in showObjects)
+            {
+                go.SetActive(true);
+            }
+        }
+
 
         if (walkingAvailable)
         {
