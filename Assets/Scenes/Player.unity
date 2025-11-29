@@ -1147,6 +1147,18 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1820516936}
+    - target: {fileID: 1813663968222832345, guid: 7c5a2992789b5d8488beeab7206f31ff, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930905160606903588, guid: 7c5a2992789b5d8488beeab7206f31ff, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930905160606903588, guid: 7c5a2992789b5d8488beeab7206f31ff, type: 3}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2318940999765941728, guid: 7c5a2992789b5d8488beeab7206f31ff, type: 3}
       propertyPath: m_Name
       value: EnemyPatrol
@@ -1191,6 +1203,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5099731950948227349, guid: 7c5a2992789b5d8488beeab7206f31ff, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5099731950948227349, guid: 7c5a2992789b5d8488beeab7206f31ff, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8341377021267187597, guid: 7c5a2992789b5d8488beeab7206f31ff, type: 3}
+      propertyPath: spawnPos
+      value: 
+      objectReference: {fileID: 1499848116}
     - target: {fileID: 8366196184897871849, guid: 7c5a2992789b5d8488beeab7206f31ff, type: 3}
       propertyPath: m_Camera
       value: 
@@ -1454,6 +1478,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad0cf2df011860c4db6c7021caa3a6b6, type: 3}
+--- !u!1 &1499848116 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3526176621572504319, guid: 7c5a2992789b5d8488beeab7206f31ff, type: 3}
+  m_PrefabInstance: {fileID: 515444158}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1636929429
 GameObject:
   m_ObjectHideFlags: 0
@@ -2267,6 +2296,10 @@ PrefabInstance:
     - target: {fileID: 399298786127798105, guid: f1bd4078bc8892946a9da259d0311f86, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 801478307070906286, guid: f1bd4078bc8892946a9da259d0311f86, type: 3}
+      propertyPath: loadDelay
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6909341439756423912, guid: f1bd4078bc8892946a9da259d0311f86, type: 3}
       propertyPath: m_Camera

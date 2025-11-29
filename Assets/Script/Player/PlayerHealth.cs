@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -14,6 +15,9 @@ public class PlayerHealth : MonoBehaviour
     private PlayerMovement playerMovement;
     private BoxCollider2D boxColider;
     private Rigidbody2D rb;
+
+    [SerializeField] private string LoseSceneName;
+    public float loadDelay = 3f;
 
     // Start is called before the first frame update
     void Start()
@@ -68,5 +72,12 @@ public class PlayerHealth : MonoBehaviour
         playerMovement.SetCanMove(false);
         FeedbackManager.Instance.SpawnFeedback(dieFeedback, gameObject);
         isDead = true;
+        StartCoroutine(LoadScene());
+    }
+
+    IEnumerator LoadScene()
+    {
+        yield return new WaitForSeconds(loadDelay);
+        SceneManager.LoadScene(LoseSceneName);
     }
 }

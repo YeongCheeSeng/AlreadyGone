@@ -785,6 +785,8 @@ MonoBehaviour:
   dieFeedback:
   - {fileID: 5240519764553466427, guid: 8036f15cf2e870b4fb029159d7ac24cf, type: 3}
   currentHealth: 0
+  LoseSceneName: LoseScreen
+  loadDelay: 2
 --- !u!61 &6384505961458633536
 BoxCollider2D:
   m_ObjectHideFlags: 0
