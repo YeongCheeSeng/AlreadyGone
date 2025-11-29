@@ -5,17 +5,27 @@ using UnityEngine;
 public class LightFollowTarget : MonoBehaviour
 {
     public GameObject target;
+    public bool rotateTowardsTarget = true;
+    public bool FollowTarget = true;
 
     void Update()
     {
-        Vector3 targetPos = target.transform.position;
-        targetPos.z = transform.position.z;
+        RotateTowardsTarget();
+        
+        if (FollowTarget && target != null)
+        {
+            transform.position = new Vector3 (target.transform.position.x, transform.localPosition.y);
+        }
+    }
 
-        Vector2 direction = targetPos - transform.position;
+    private void RotateTowardsTarget()
+    {
+        if (!rotateTowardsTarget || target == null)
+            return;
 
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        angle = (angle + 360) % 360;
+        Vector3 Look = transform.InverseTransformPoint(target.transform.position);
+        float angle = Mathf.Atan2(Look.y, Look.x) * Mathf.Rad2Deg - 90;
 
-        transform.rotation = Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, angle);
+        transform.Rotate(0, 0, angle);
     }
 }
