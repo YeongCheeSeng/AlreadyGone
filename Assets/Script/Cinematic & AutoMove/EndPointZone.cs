@@ -72,16 +72,16 @@ public class EndPointZone : MonoBehaviour
             yield return null;
         }
 
+        // Stop movement immediately
+        playerRigidbody.velocity = new Vector2(0, originalVelocity.y);
+        player.animator.Play("Player_Idle");
+
         if (showCinematicBars && barSystem != null)
         {
             // Wait for a moment before hiding bars
             yield return new WaitForSeconds(cinematicDuration);
             barSystem.HideBars();
         }
-
-        // Stop movement
-        playerRigidbody.velocity = new Vector2(0, originalVelocity.y);
-        player.animator.Play("Player_Idle");
 
         if (walkingAvailable)
         {
