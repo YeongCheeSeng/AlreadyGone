@@ -9,9 +9,24 @@ public class Thunder : MonoBehaviour
     public float flashDuration = 0.1f;
     public int flashCount = 3;
 
+    private AudioSource audioSource;
+
     void Start()
     {
-        StartCoroutine(Flash());
+        audioSource = GetComponent<AudioSource>();
+
+        if (flashImage != null)
+        {
+            flashImage.enabled = false;
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            StartCoroutine(Flash());
+        }
     }
 
     IEnumerator Flash()
@@ -20,6 +35,9 @@ public class Thunder : MonoBehaviour
         {
             yield break;
         }
+
+        audioSource.Play();
+
         for (int i = 0; i < flashCount; i++)
         {
             yield return StartCoroutine(FlashOnce());

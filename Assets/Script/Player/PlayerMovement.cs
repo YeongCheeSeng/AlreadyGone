@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5f;
     public float jumpHeight = 5f;
+    public bool canMove = true;
     public Animator animator;
 
     private Rigidbody2D rb;
@@ -19,8 +20,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        HandleMovement();
-        HandleJump();
+        if (canMove)
+        {
+            HandleMovement();
+            HandleJump();
+        }
+
         HandleAnimations();
     }
 
@@ -50,9 +55,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void HandleAnimations()
+    public void HandleAnimations()
     {
-
         if (rb.velocity.x != 0 && isGrounded)
         {
             animator.Play("Player_Walk");
@@ -80,6 +84,15 @@ public class PlayerMovement : MonoBehaviour
         if (collision.CompareTag("Ground"))
         {
             isGrounded = false;
+        }
+    }
+
+    public void SetCanMove(bool value)
+    {
+        canMove = value;
+        if (!canMove)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
         }
     }
 }
