@@ -813,7 +813,7 @@ Transform:
   m_GameObject: {fileID: 611739865}
   serializedVersion: 2
   m_LocalRotation: {x: -1, y: 0, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.1, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -856,7 +856,7 @@ MonoBehaviour:
     m_Center: {x: 0, y: -0.00000011920929, z: 0}
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 30
-  m_PointLightOuterAngle: 360
+  m_PointLightOuterAngle: 30
   m_PointLightInnerRadius: 0
   m_PointLightOuterRadius: 5
   m_ShapeLightParametricSides: 5
@@ -876,12 +876,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 611739865}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20612c933f0592740b134c5220d5c00c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {fileID: 1820516930}
 --- !u!1 &1697186607
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,6 +1164,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1820516930 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8119830517092554456, guid: f1bd4078bc8892946a9da259d0311f86, type: 3}
+  m_PrefabInstance: {fileID: 7690186169006257799}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &257531522580065864
 PrefabInstance:
   m_ObjectHideFlags: 0
