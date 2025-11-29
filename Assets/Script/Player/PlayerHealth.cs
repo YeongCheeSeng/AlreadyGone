@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxHealth = 100;
+    public float maxHealth = 100;
     public Image healthBar;
 
-    private int currentHealth;
+    public float currentHealth;
 
     // Start is called before the first frame update
     void Start()
@@ -27,9 +27,11 @@ public class PlayerHealth : MonoBehaviour
         {
             TakeDamage(10);
         }
+
+        Debug.Log("Current Health: " + currentHealth);
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         currentHealth -= damage;
         if (currentHealth <= 0)
@@ -39,11 +41,20 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    public void RecoverHealth(float amount)
+    {
+        currentHealth += amount;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+    }
+
     private void UpdateHealthBar()
     {
         if (healthBar != null)
         {
-            healthBar.fillAmount = (float)currentHealth / maxHealth;
+            healthBar.fillAmount = currentHealth / maxHealth;
         }
     }
 
