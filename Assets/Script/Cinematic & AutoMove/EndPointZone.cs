@@ -109,6 +109,7 @@ public class EndPointZone : MonoBehaviour
 
             // Load the next scene
             Debug.Log("Loading next: "+nextSceneName);
+            SceneManager.LoadScene(nextSceneName);
         }
     }
 }

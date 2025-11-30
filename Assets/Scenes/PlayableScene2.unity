@@ -25516,6 +25516,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 77763353}
     - target: {fileID: 6600365945918095331, guid: 5a82682fcf1de5049b63ba13cdfbf223, type: 3}
+      propertyPath: nextSceneName
+      value: EndingScn
+      objectReference: {fileID: 0}
+    - target: {fileID: 6600365945918095331, guid: 5a82682fcf1de5049b63ba13cdfbf223, type: 3}
       propertyPath: walkingAvailable
       value: 0
       objectReference: {fileID: 0}
