@@ -34,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Reference")]
     public Animator animator;
+    public BoxCollider2D groundCollider;
+    public BoxCollider2D airCollider;
     public bool isFacingRight = true;
 
     private Rigidbody2D rb;
@@ -62,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
 
         HandleFeedback();
         HandleAnimations();
+        HandleCollision();
 
         Debug.Log(isGrounded);
     }
@@ -189,6 +192,12 @@ public class PlayerMovement : MonoBehaviour
                 animator.Play("Player_AttackLeft");
             }
         }
+    }
+
+    void HandleCollision()
+    {
+        groundCollider.isTrigger = !isGrounded;
+        airCollider.isTrigger = isGrounded;
     }
 
     void HandleFeedback()

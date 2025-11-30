@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
+    public bool parkourHp;
     public float maxHealth = 100;
     public Image healthBar;
     public bool isDead = false;
@@ -67,12 +68,22 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         Debug.Log("Player Died");
-        rb.gravityScale = 0;
-        boxColider.enabled = false;
-        playerMovement.SetCanMove(false);
-        FeedbackManager.Instance.SpawnFeedback(dieFeedback, gameObject);
-        isDead = true;
-        StartCoroutine(LoadScene());
+
+        if (parkourHp)
+        {
+            playerMovement.SetCanMove(false);
+            FeedbackManager.Instance.SpawnFeedback(dieFeedback, gameObject);
+            isDead = true;
+        }
+        else
+        {
+            rb.gravityScale = 0;
+            boxColider.enabled = false;
+            playerMovement.SetCanMove(false);
+            FeedbackManager.Instance.SpawnFeedback(dieFeedback, gameObject);
+            isDead = true;
+            StartCoroutine(LoadScene());
+        }
     }
 
     IEnumerator LoadScene()

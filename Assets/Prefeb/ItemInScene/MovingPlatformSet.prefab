@@ -199,7 +199,7 @@ Transform:
   m_GameObject: {fileID: 4747164698266774275}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 65.3349, y: 0.52, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.01, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 8954182493863159686}
-  durationFromAMoveToB: 20
+  durationFromAMoveToB: 25
   easeCurve:
     serializedVersion: 2
     m_Curve:
@@ -302,7 +302,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  destroyMeAfterArrived: 0
+  destroyMeAfterArrived: 1
 --- !u!114 &293607792343575165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -502,8 +502,8 @@ Transform:
   m_GameObject: {fileID: 8560024459428080663}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 113.184906, y: -0.67, z: 0}
-  m_LocalScale: {x: 8, y: 4.3511443, z: 1}
+  m_LocalPosition: {x: 25.6, y: -1.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1802840983108041998}
