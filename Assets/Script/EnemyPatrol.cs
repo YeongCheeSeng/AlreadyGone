@@ -75,7 +75,7 @@ public class EnemyPatrol : MonoBehaviour
         {
             if (enemyHealth.dead == true) return;
 
-            animator.SetTrigger("moving");
+            //animator.SetTrigger("moving");
 
             enemy.localScale = new Vector3(Mathf.Abs(initscale.x) * _direction,
                 initscale.y, initscale.z);

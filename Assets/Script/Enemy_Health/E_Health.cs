@@ -12,10 +12,12 @@ public class E_Health : MonoBehaviour
 
     public BoxCollider2D boxCollider;
     private Rigidbody2D rb;
+    private Enemy_behaviour enemy_behaviour;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        enemy_behaviour = GetComponent<Enemy_behaviour>();
         currentHealth = startingHealth;       
     }
 
@@ -26,7 +28,13 @@ public class E_Health : MonoBehaviour
         if (currentHealth > 0)
         {
             //enemy hurt
-            anim.SetTrigger("hurt");  
+            //anim.SetTrigger("hurt");
+            
+            // Jump away when injured
+            if (enemy_behaviour != null)
+            {
+                enemy_behaviour.TriggerJumpAway();
+            }
         }
         else
         {

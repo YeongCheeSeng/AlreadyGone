@@ -32,6 +32,7 @@ public class EnemyFollow : MonoBehaviour
     public Transform player;
     public float speed = 3f;
     public float chaseRange = 5f;
+    [SerializeField] private float jumpAwayDistance = 1.5f;
 
     public GameObject enemy;
     private Rigidbody2D rb;
@@ -44,6 +45,8 @@ public class EnemyFollow : MonoBehaviour
 
     private PlayerHealth playerHealth;
     private Vector3 originalTransform;
+    private float jumpAwayTimer = 0f;
+    private float jumpAwayCooldown = 2f;
 
     private void Awake()
     {
@@ -60,6 +63,8 @@ public class EnemyFollow : MonoBehaviour
 
     private void Update()
     {
+        jumpAwayTimer -= Time.deltaTime;
+
         if (enemy_health.dead == true)
         {
             enemy_behaviour.SetFollowControl(false);
@@ -78,15 +83,21 @@ public class EnemyFollow : MonoBehaviour
                 enemy_patrol.canFollow = true;
                 enemy_behaviour.SetFollowControl(true);
                 
-                // Don't chase if the enemy is attacking
-                if (!enemy_behaviour.IsAttacking())
+                // Jump away if player is too close and not currently jumping
+                if (distance < jumpAwayDistance && jumpAwayTimer <= 0 && !enemy_behaviour.IsAttacking() && !enemy_behaviour.IsJumping())
+                {
+                    enemy_behaviour.TriggerJumpAway();
+                    jumpAwayTimer = jumpAwayCooldown;
+                }
+                
+                // Don't chase if the enemy is attacking or jumping
+                if (!enemy_behaviour.IsAttacking() && !enemy_behaviour.IsJumping())
                 {
                     ChasePlayer();
                 }
                 else
                 {
-                    // Stop movement during attack
-                    rb.velocity = new Vector2(0, rb.velocity.y);
+                    // Don't modify velocity during attack or jump - let those coroutines handle it
                     enemy_behaviour.StopRunningAnimation();
                 }
             }
