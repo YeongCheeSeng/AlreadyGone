@@ -16,6 +16,8 @@ public class CinematicBar : MonoBehaviour
     private Vector3 initialBottomBarPosition;
     private bool isAnimating = false;
     private Camera mainCamera;
+    private float cachedOrthoSize;
+    private Vector3 cachedCameraPos;
 
     // Events for animation completion
     public event Action OnBarsShown;
@@ -35,6 +37,9 @@ public class CinematicBar : MonoBehaviour
             mainCamera = Camera.main;
         }
 
+        // Cache initial camera state
+        CacheCameraState();
+
         initialTopBarPosition = topBar.transform.position;
         initialBottomBarPosition = bottomBar.transform.position;
     }
@@ -52,11 +57,18 @@ public class CinematicBar : MonoBehaviour
         }
     }
 
+    private void CacheCameraState()
+    {
+        cachedOrthoSize = mainCamera.orthographicSize;
+        cachedCameraPos = mainCamera.transform.position;
+    }
+
     public void ShowBars()
     {
         if (isAnimating)
             StopAllCoroutines();
         
+        CacheCameraState();
         StartCoroutine(AnimateBars(topBarScreenY, bottomBarScreenY, OnBarsShown));
     }
 
@@ -65,6 +77,7 @@ public class CinematicBar : MonoBehaviour
         if (isAnimating)
             StopAllCoroutines();
         
+        CacheCameraState();
         StartCoroutine(AnimateBars(1f + offScreenOffset, -offScreenOffset, OnBarsHidden));
     }
 
@@ -72,8 +85,17 @@ public class CinematicBar : MonoBehaviour
 
     private Vector3 GetScreenSpaceWorldPosition(float screenX, float screenY)
     {
+        // Use cached ortho size instead of current camera state
         Vector3 screenPos = new Vector3(Screen.width * screenX, Screen.height * screenY, 10f);
-        return mainCamera.ScreenToWorldPoint(screenPos);
+        
+        // Calculate world position using cached ortho size
+        float worldHeight = cachedOrthoSize * 2f;
+        float worldWidth = worldHeight * (Screen.width / (float)Screen.height);
+        
+        float worldX = cachedCameraPos.x - (worldWidth / 2f) + (worldWidth * screenX);
+        float worldY = cachedCameraPos.y - (worldHeight / 2f) + (worldHeight * screenY);
+        
+        return new Vector3(worldX, worldY, 10f);
     }
 
     private IEnumerator AnimateBars(float targetTopScreenY, float targetBottomScreenY, Action onComplete = null)
@@ -81,9 +103,13 @@ public class CinematicBar : MonoBehaviour
         isAnimating = true;
         float elapsedTime = 0f;
         
-        // Get initial screen Y positions
-        float startTopScreenY = mainCamera.WorldToScreenPoint(topBar.transform.position).y / Screen.height;
-        float startBottomScreenY = mainCamera.WorldToScreenPoint(bottomBar.transform.position).y / Screen.height;
+        // Get initial screen Y positions using cached camera state
+        Vector3 topWorldPos = topBar.transform.position;
+        Vector3 bottomWorldPos = bottomBar.transform.position;
+        
+        float worldHeight = cachedOrthoSize * 2f;
+        float startTopScreenY = ((topWorldPos.y - cachedCameraPos.y) + (worldHeight / 2f)) / worldHeight;
+        float startBottomScreenY = ((bottomWorldPos.y - cachedCameraPos.y) + (worldHeight / 2f)) / worldHeight;
         
         // Calculate duration based on screen distance
         float screenDistance = Mathf.Abs(targetTopScreenY - startTopScreenY);

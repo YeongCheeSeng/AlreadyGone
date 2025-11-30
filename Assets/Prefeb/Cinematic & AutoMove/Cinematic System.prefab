@@ -49,9 +49,9 @@ MonoBehaviour:
   topBar: {fileID: 4921727615900336115}
   bottomBar: {fileID: 7700280785132562842}
   barSpeed: 0.2
-  topBarScreenY: 0.9
-  bottomBarScreenY: 0.1
-  offScreenOffset: 0.15
+  topBarScreenY: 0.99
+  bottomBarScreenY: 0.01
+  offScreenOffset: 0.3
 --- !u!1 &4921727615900336115
 GameObject:
   m_ObjectHideFlags: 0
@@ -78,7 +78,7 @@ Transform:
   m_GameObject: {fileID: 4921727615900336115}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 12.5, z: 0}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 40, y: 5, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -162,7 +162,7 @@ Transform:
   m_GameObject: {fileID: 7700280785132562842}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -12.5, z: 0}
+  m_LocalPosition: {x: 0, y: -10, z: 0}
   m_LocalScale: {x: 40, y: 5, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []

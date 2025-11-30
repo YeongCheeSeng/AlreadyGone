@@ -1,7 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -16,6 +13,9 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Jump")]
     [SerializeField] public float jumpHeight = 5f;
+    [SerializeField] public float groundVelocityThreshold = 0.1f;
+    [SerializeField] public float jumpGracePeriod = 0.7f;
+    private float jumpGraceTimer;
 
     [Header("Attack")]
     public GameObject hurtBox;
@@ -51,10 +51,13 @@ public class PlayerMovement : MonoBehaviour
 
         currentAttackCooldown = attackCooldown;
         currentFeedbackTime = Random.Range(MinFeedbackTime,MaxFeedbackTime);
+        jumpGraceTimer = 0f;
     }
 
     private void Update()
     {
+        jumpGraceTimer -= Time.deltaTime;
+
         if (canMove)
         {
             HandleMovement();
@@ -98,6 +101,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W) && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
+            jumpGraceTimer = jumpGracePeriod;
         }
     }
 
@@ -134,8 +138,21 @@ public class PlayerMovement : MonoBehaviour
         isAttacking = false;
     }
 
+    private bool IsGroundedByVelocity()
+    {
+        return Mathf.Abs(rb.velocity.y) <= groundVelocityThreshold;
+    }
+
+    private bool IsInAir()
+    {
+        return !IsGroundedByVelocity() || jumpGraceTimer > 0;
+    }
+
     public void HandleAnimations()
     {
+        bool velocityGrounded = IsGroundedByVelocity();
+        bool inAir = IsInAir();
+
         if (isFacingRight)
         {
             if (playerHealth.isDead)
@@ -146,11 +163,11 @@ public class PlayerMovement : MonoBehaviour
 
             if (!isAttacking)
             {
-                if (rb.velocity.x != 0 && isGrounded)
+                if (rb.velocity.x != 0 && velocityGrounded && !inAir)
                 {
                     animator.Play("Player_WalkRight");
                 }
-                else if (isGrounded)
+                else if (velocityGrounded && !inAir)
                 {
                     animator.Play("Player_IdleRight");
                 }
@@ -159,7 +176,7 @@ public class PlayerMovement : MonoBehaviour
                     animator.Play("Player_JumpRight");
                 }
             }
-            else if (isGrounded && isAttacking)
+            else if (velocityGrounded && !inAir && isAttacking)
             {
                 animator.Play("Player_AttackRight");
             }
@@ -174,11 +191,11 @@ public class PlayerMovement : MonoBehaviour
 
             if (!isAttacking)
             {
-                if (rb.velocity.x != 0 && isGrounded)
+                if (rb.velocity.x != 0 && velocityGrounded && !inAir)
                 {
                     animator.Play("Player_WalkLeft");
                 }
-                else if (isGrounded)
+                else if (velocityGrounded && !inAir)
                 {
                     animator.Play("Player_IdleLeft");
                 }
@@ -187,7 +204,7 @@ public class PlayerMovement : MonoBehaviour
                     animator.Play("Player_JumpLeft");
                 }
             }
-            else if (isGrounded && isAttacking)
+            else if (velocityGrounded && !inAir && isAttacking)
             {
                 animator.Play("Player_AttackLeft");
             }
@@ -202,7 +219,10 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleFeedback()
     {
-        if (rb.velocity.magnitude > 0.1f && isGrounded)
+        bool velocityGrounded = IsGroundedByVelocity();
+        bool inAir = IsInAir();
+
+        if (rb.velocity.magnitude > 0.1f && velocityGrounded && !inAir)
         {
             currentFeedbackTime -= Time.deltaTime;
 
@@ -213,7 +233,7 @@ public class PlayerMovement : MonoBehaviour
             }            
         }
 
-        particle.SetActive(isGrounded);
+        particle.SetActive(velocityGrounded && !inAir);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
