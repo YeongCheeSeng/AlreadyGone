@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class Enemy_behaviour : MonoBehaviour
@@ -11,6 +9,8 @@ public class Enemy_behaviour : MonoBehaviour
     [SerializeField] private int damage;
     [SerializeField] private BoxCollider2D boxCollider;
     [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private float velocityThreshold = 0.05f;
+    [SerializeField] private float attackAnimationDelay = 0.3f;
     public GameObject[] hitFeedback;
     private float cooldowntimer = Mathf.Infinity;
     private float initSpeed;
@@ -20,31 +20,39 @@ public class Enemy_behaviour : MonoBehaviour
     private PlayerHealth player_health;
     private E_Health enemy_health;
     private EnemyPatrol enemy_patrol;
+    private Rigidbody2D rb;
+    private bool isBeingControlledByFollow = false;
+    private bool isAttacking = false;
 
     private void Awake()
     {
         enemy_patrol = GetComponentInParent<EnemyPatrol>();
         enemy_health = GetComponent<E_Health>();
+        rb = GetComponent<Rigidbody2D>();
 
         initSpeed = enemy_patrol.speed;
     }
 
     private void Update() 
     {
-        if (enemy_health.dead == true) return;
+        if (enemy_health.dead == true)
+        {
+            StopRunningAnimation();
+            return;
+        }
 
         cooldowntimer += Time.deltaTime;
 
-        // Attack only when player insight
-        if(playerInsight())
+        // Only handle animation if not being controlled by EnemyFollow
+        if (!isBeingControlledByFollow)
         {
-            if(cooldowntimer > attackcooldown)
-            {
-                //cooldowntimer = 0;
-                //anim.SetTrigger("attack"); 
+            PlayRunningAnimation();
+        }
 
-                StartCoroutine(Attack());
-            }       
+        // Attack only when player insight
+        if(playerInsight() && cooldowntimer > attackcooldown && !isAttacking)
+        {
+            StartCoroutine(Attack());
             enemy_patrol.canMove = false;
         }
 
@@ -54,20 +62,39 @@ public class Enemy_behaviour : MonoBehaviour
         }    
     }
 
+    public void PlayRunningAnimation()
+    {
+        if (Mathf.Abs(rb.velocity.x) > velocityThreshold)
+        {
+            anim.Play("running");
+        }
+        else
+        {
+            StopRunningAnimation();
+        }
+    }
+
+    public void StopRunningAnimation()
+    {
+        anim.Play("idle");
+    }
+
+    public void SetFollowControl(bool isControlled)
+    {
+        isBeingControlledByFollow = isControlled;
+    }
+
+    public bool IsAttacking()
+    {
+        return isAttacking;
+    }
+
     private bool playerInsight()
     {
         RaycastHit2D hit = 
             Physics2D.BoxCast(boxCollider.bounds.center + transform.right * range * transform.localScale.x * collisionDistance, 
             new Vector3(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y, boxCollider.bounds.size.z),
             0, Vector2.left, 0, playerLayer);
-
-        if (hit.collider != null && cooldowntimer > attackcooldown)
-        {
-            player_health = hit.transform.GetComponent<PlayerHealth>();
-            player_health?.TakeDamage(damage);
-            
-            FeedbackManager.Instance.SpawnFeedback(hitFeedback, spawnPos);
-        }
 
         return hit.collider != null;
     }
@@ -81,41 +108,44 @@ public class Enemy_behaviour : MonoBehaviour
 
     IEnumerator Attack()
     {
+        isAttacking = true;
         cooldowntimer = 0;
+        
+        // Stop movement during attack
+        rb.velocity = new Vector2(0, rb.velocity.y);
+        
         anim.SetTrigger("attack");
-        yield return new WaitForSeconds(3f);
+        
+        // Wait for the attack animation to reach the damage point
+        yield return new WaitForSeconds(attackAnimationDelay);
+        
+        // Apply damage at the synchronized point
+        ApplyAttackDamage();
+        
+        
+        
+        // Wait for the rest of the attack animation to finish
+        yield return new WaitForSeconds(0.7f - attackAnimationDelay);
+        
+        isAttacking = false;
     }
 
-    // private bool playerInsight()
-    // {
-    //     // Determine cast direction based on enemy facing
-    //     Vector2 direction = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+    private void ApplyAttackDamage()
+    {
+        RaycastHit2D hit = 
+            Physics2D.BoxCast(boxCollider.bounds.center + transform.right * range * transform.localScale.x * collisionDistance, 
+            new Vector3(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y, boxCollider.bounds.size.z),
+            0, Vector2.left, 0, playerLayer);
 
-    //     // Cast box forward
-    //     RaycastHit2D hit = Physics2D.BoxCast(
-    //         boxCollider.bounds.center,
-    //         new Vector2(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y),
-    //         0f,
-    //         direction,
-    //         collisionDistance,
-    //         playerLayer
-    //     );
+        if (hit.collider != null)
+        {
+            player_health = hit.transform.GetComponent<PlayerHealth>();
+            player_health?.TakeDamage(damage);
 
-    //     return hit.collider != null;
-    // }
-
-    // private void OnDrawGizmos()
-    // {
-    //     if (boxCollider == null) return;
-
-    //     Gizmos.color = Color.red;
-    //     Vector2 direction = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
-
-    //     Gizmos.DrawWireCube(
-    //         boxCollider.bounds.center + (Vector3)(direction * collisionDistance),
-    //         new Vector3(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y, 1)
-    //     );
-    // }
+            // Show feedback
+            FeedbackManager.Instance.SpawnFeedback(hitFeedback, spawnPos);
+        }
+    }
 
     void damagePlayer()
     {
@@ -124,6 +154,5 @@ public class Enemy_behaviour : MonoBehaviour
             player_health.TakeDamage(damage);
         }
     }
-
 }
 

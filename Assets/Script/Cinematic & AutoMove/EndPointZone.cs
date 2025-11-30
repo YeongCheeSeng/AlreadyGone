@@ -1,5 +1,4 @@
 using System.Collections;
-using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,13 +9,14 @@ public class EndPointZone : MonoBehaviour
     [SerializeField] private float moveDuration = 2.8f; // Duration for moving the player
     [SerializeField] private float waitBeforeLoad = 5f; // Wait time before loading next scene
     [Tooltip("If true, player can walk after auto-move; if false, scene changes after wait time.")]
-    public bool walkingAvailable = true; 
+    public bool walkingAvailable = true;
     public string nextSceneName;
 
     [Header("Cinematic Settings")]
     [SerializeField] private GameObject cinematicBars;
     public float cinematicDuration = 5.0f;
     public bool showCinematicBars = true;
+    public bool hideAfterCinematic = true;
 
     [Header("Spawning Settings")]
     public GameObject[] showObjects;
@@ -71,7 +71,7 @@ public class EndPointZone : MonoBehaviour
         Vector2 originalVelocity = playerRigidbody.velocity;
 
         // Play walk animation once
-        player.animator.Play("Player_Walk");
+        player.HandleAnimations();
 
         // Show bars (starts animating but doesn't wait)
         if (showCinematicBars && barSystem != null)
@@ -90,7 +90,6 @@ public class EndPointZone : MonoBehaviour
 
         // Stop movement immediately
         playerRigidbody.velocity = new Vector2(0, originalVelocity.y);
-        player.animator.Play("Player_Idle");
 
         if (hideObjects != null && hideObjects.Count() > 0)
         {
@@ -120,7 +119,10 @@ public class EndPointZone : MonoBehaviour
         {
             // Wait for cinematic duration before hiding bars
             yield return new WaitForSeconds(cinematicDuration);
-            barSystem.HideBars();
+            if (hideAfterCinematic)
+            {
+                barSystem.HideBars();
+            }
         }
         
         if (!walkingAvailable)
@@ -129,7 +131,6 @@ public class EndPointZone : MonoBehaviour
             yield return new WaitForSeconds(waitBeforeLoad);
 
             // Load the next scene
-            Debug.Log("Loading next: "+nextSceneName);
             SceneManager.LoadScene(nextSceneName);
         }
     }

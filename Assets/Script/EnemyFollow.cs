@@ -25,7 +25,6 @@
 // }
 
 
-using JetBrains.Annotations;
 using UnityEngine;
 
 public class EnemyFollow : MonoBehaviour
@@ -41,6 +40,7 @@ public class EnemyFollow : MonoBehaviour
     private Animator anim;
     private EnemyPatrol enemy_patrol;
     private E_Health enemy_health;
+    private Enemy_behaviour enemy_behaviour;
 
     private PlayerHealth playerHealth;
     private Vector3 originalTransform;
@@ -52,6 +52,7 @@ public class EnemyFollow : MonoBehaviour
         anim = enemy.GetComponent<Animator>();
         enemy_health = GetComponent<E_Health>();
         enemy_patrol = GetComponentInParent<EnemyPatrol>();
+        enemy_behaviour = GetComponent<Enemy_behaviour>();
 
         enemyFacing = enemy_patrol.enemy.transform.localScale.x;
         originalTransform = transform.localScale;
@@ -59,7 +60,12 @@ public class EnemyFollow : MonoBehaviour
 
     private void Update()
     {
-        if (enemy_health.dead == true) return;
+        if (enemy_health.dead == true)
+        {
+            enemy_behaviour.SetFollowControl(false);
+            enemy_behaviour.StopRunningAnimation();
+            return;
+        }
 
         float distance = Vector2.Distance(transform.position, player.position);
 
@@ -70,13 +76,27 @@ public class EnemyFollow : MonoBehaviour
             if (playerHealth.currentHealth > 0)
             {
                 enemy_patrol.canFollow = true;
-                ChasePlayer();                
+                enemy_behaviour.SetFollowControl(true);
+                
+                // Don't chase if the enemy is attacking
+                if (!enemy_behaviour.IsAttacking())
+                {
+                    ChasePlayer();
+                }
+                else
+                {
+                    // Stop movement during attack
+                    rb.velocity = new Vector2(0, rb.velocity.y);
+                    enemy_behaviour.StopRunningAnimation();
+                }
             }
         }
         else
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
             enemy_patrol.canFollow = false;
+            enemy_behaviour.SetFollowControl(false);
+            enemy_behaviour.StopRunningAnimation();
         }
     }
 
@@ -90,6 +110,6 @@ public class EnemyFollow : MonoBehaviour
         else
             enemy.transform.localScale = new Vector3(-originalTransform.x, originalTransform.y, originalTransform.z);
 
-        anim.SetTrigger("moving");
+        enemy_behaviour.PlayRunningAnimation();
     }
 }
