@@ -29,8 +29,8 @@ public class MoveToward : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, target.position, eased);
 
         if (destroyMeAfterArrived && Vector2.Distance(transform.position, target.position) < 0.1f)
-        { 
-            Destroy(gameObject);
+        {
+           Destroy(gameObject);
         }
     }
 }

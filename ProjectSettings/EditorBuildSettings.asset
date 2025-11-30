@@ -21,14 +21,11 @@ EditorBuildSettings:
     path: Assets/Scenes/CutScenes/EndScn2.unity
     guid: 54b922aa925bc0d458dd728abc9c95ba
   - enabled: 1
-    path: Assets/Scenes/In_gameScreen/LoseScreen.unity
-    guid: 4210064a2cd319d498bd3c6a201d59c8
+    path: Assets/Scenes/PlayableScene1.unity
+    guid: 78911b2fed1da7940aaa0c36fd7f2931
   - enabled: 1
-    path: Assets/Scenes/In_gameScreen/WinScreen.unity
-    guid: 9cb8ef0d9fa4b824582c18b2048a8fb2
-  - enabled: 1
-    path: Assets/Scenes/CutScenes/Opening scene.unity
-    guid: 7b68e9b941ee0de439c99bc2e8d22c53
+    path: Assets/Scenes/PlayableScene2.unity
+    guid: deaa232b306e4eb4eb0ee62dc58b3f1b
   - enabled: 1
     path: Assets/Scenes/CutScenes/FightScn.unity
     guid: 31bd5a4bd62d4eb4eadbe14fb148e379
@@ -36,9 +33,12 @@ EditorBuildSettings:
     path: Assets/Scenes/CutScenes/HealScn.unity
     guid: 98412b5e25fa0c340bf19ce705e025a0
   - enabled: 1
-    path: Assets/Scenes/PlayableScene1.unity
-    guid: 78911b2fed1da7940aaa0c36fd7f2931
+    path: Assets/Scenes/CutScenes/Opening scene.unity
+    guid: 7b68e9b941ee0de439c99bc2e8d22c53
   - enabled: 1
-    path: Assets/Scenes/PlayableScene2.unity
-    guid: deaa232b306e4eb4eb0ee62dc58b3f1b
+    path: Assets/Scenes/In_gameScreen/WinScreen.unity
+    guid: 9cb8ef0d9fa4b824582c18b2048a8fb2
+  - enabled: 1
+    path: Assets/Scenes/In_gameScreen/LoseScreen.unity
+    guid: 4210064a2cd319d498bd3c6a201d59c8
   m_configObjects: {}
