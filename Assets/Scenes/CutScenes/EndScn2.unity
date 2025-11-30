@@ -370,18 +370,18 @@ MonoBehaviour:
 
     NA: ....
 
-    NA: As all the
-    obstacle blocking their love has ALREADY GONE.....
+    NA: As all the obstacle
+    blocking their love has ALREADY GONE.....
 
-    NA: They lived happily
-    ever after together.
+    NA: They lived happily ever after
+    together.
 
     THE END'
   typingSpeed: 0.04
   waitAfterFinished: 1
   continueText: {fileID: 98132046}
   blinkSpeed: 2
-  nextSceneName: MainMenu
+  nextSceneName: WinScreen
 --- !u!4 &192386024
 Transform:
   m_ObjectHideFlags: 0

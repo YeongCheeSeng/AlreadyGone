@@ -775,7 +775,7 @@ MonoBehaviour:
   waitAfterFinished: 1
   continueText: {fileID: 216470080}
   blinkSpeed: 2
-  nextSceneName: EndingScn
+  nextSceneName: PlayableScene2
 --- !u!4 &2040220749
 Transform:
   m_ObjectHideFlags: 0
