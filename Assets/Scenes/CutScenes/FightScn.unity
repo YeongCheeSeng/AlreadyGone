@@ -770,7 +770,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueText: {fileID: 1081307104}
-  dialogueLines: []
+  dialogueLines:
+  - "BRO: Yo bro, look at that pathetic expression of yours, hahaha. Let me tell
+    you something interesting!\r\nBRO: I\u2019ve kidnapped your lover, hahaha! I
+    love her so much!!!\r\nBRO: If you want it you have to take it....\r\nBRO: I
+    means... If you want to save her, then defeat me!\r"
+  - "JAMS: HOW DARE U! BRO!!!\r\nBRO: COME ON JAMS! LET'S DANCE!\r"
   typingSpeed: 0.04
   waitAfterFinished: 1
   continueText: {fileID: 216470080}
